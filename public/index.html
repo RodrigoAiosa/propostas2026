@@ -1,0 +1,471 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lula x Flávio: propostas econômicas em linguagem simples</title>
+<meta name="description" content="Compare as propostas econômicas de Lula e Flávio Bolsonaro, baixe os planos e veja quem propõe menos Estado.">
+<style>
+  :root{--bg:#f7f7f5;--card:#fff;--ink:#1b1b1b;--mut:#666;--line:#e3e3df;--lula:#c0392b;--flavio:#1f5fbf}
+  @media(prefers-color-scheme:dark){:root{--bg:#141414;--card:#1e1e1e;--ink:#eee;--mut:#9a9a9a;--line:#333}}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
+  .wrap{max-width:980px;margin:0 auto;padding:0 16px 64px}
+  header{padding:32px 0 8px}
+  h1{font-size:1.7rem;margin:0 0 6px;line-height:1.2}
+  h2{font-size:1.25rem;margin:36px 0 12px}
+  p.sub{color:var(--mut);margin:0}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:18px}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media(max-width:700px){.grid2{grid-template-columns:1fr}}
+  .badge{display:inline-block;font-size:.75rem;padding:2px 9px;border-radius:99px;color:#fff;font-weight:600}
+  .lula{--c:var(--lula)} .flavio{--c:var(--flavio)}
+  .badge.lula{background:var(--lula)} .badge.flavio{background:var(--flavio)}
+  .verdict .name{font-size:1.15rem;font-weight:700;color:var(--c)}
+  .big{font-size:2rem;font-weight:800;color:var(--c)}
+  .bar{height:10px;background:var(--line);border-radius:99px;overflow:hidden;margin:6px 0}
+  .bar>i{display:block;height:100%;background:var(--c);border-radius:99px}
+  .scale{display:flex;justify-content:space-between;font-size:.72rem;color:var(--mut)}
+  table{width:100%;border-collapse:collapse;font-size:.92rem}
+  th,td{padding:10px 8px;border-bottom:1px solid var(--line);vertical-align:top;text-align:left}
+  th{font-size:.78rem;text-transform:uppercase;letter-spacing:.04em;color:var(--mut)}
+  .tablewrap{overflow-x:auto}
+  .pill{font-size:.72rem;padding:1px 8px;border-radius:99px;border:1px solid var(--line);color:var(--mut)}
+  .lead{font-weight:700;font-size:.8rem}
+  .lead.lula{color:var(--lula)} .lead.flavio{color:var(--flavio)}
+  .tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}
+  .tabs button{border:1px solid var(--line);background:var(--card);color:var(--ink);padding:7px 14px;border-radius:99px;cursor:pointer;font:inherit;font-size:.88rem}
+  .tabs button[aria-pressed=true]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+  .sector{margin-bottom:14px}
+  .sector h3{margin:0 0 10px;font-size:1.05rem;display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+  .doc{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid var(--line)}
+  .doc:last-child{border:0}
+  a{color:inherit} a.btn{background:var(--ink);color:var(--bg);padding:7px 14px;border-radius:8px;text-decoration:none;font-size:.85rem;white-space:nowrap}
+  .note{font-size:.85rem;color:var(--mut)}
+  footer{margin-top:40px;font-size:.82rem;color:var(--mut)}
+  [hidden]{display:none!important}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <h1>Lula x Flávio Bolsonaro: o que cada um propõe para a economia</h1>
+  <p class="sub">Atualizado em 20/10/2026 &middot; 2º turno em 25/10/2026 &middot; Site informativo, sem apoio a candidato.</p>
+</header>
+
+
+
+<h2>Quem propõe menos Estado?</h2>
+<div class="grid2 verdict">
+  <div class="card flavio">
+    <div class="note">Mais liberal no papel (intenção)</div>
+    
+      <div class="name">Flávio Bolsonaro</div>
+      <div class="note">Média geral: Lula 2.6 &bull; Flávio 5.9 (0 = Estado forte, 10 = Estado mínimo)</div>
+    
+  </div>
+  <div class="card flavio">
+    <div class="note">Mais liberal de verdade (ajustado pelo detalhamento)</div>
+    
+      <div class="name">Flávio Bolsonaro</div>
+      <div class="note">Ajustada: Lula 2.6 &bull; Flávio 5.6</div>
+    
+  </div>
+  <div class="card lula" style="grid-column:1/-1">
+    <div class="note">Proposta mais voltada ao Estado</div>
+    
+      <div class="name">Lula</div>
+    
+    <div class="note" style="margin-top:6px">
+      Propostas vagas pesam menos: um plano que promete cortar gastos sem dizer o que, nem como, vale menos do que um plano detalhado.
+      Veja a <a href="#metodologia">metodologia</a>.
+    </div>
+  </div>
+</div>
+
+<div class="card" style="margin-top:14px">
+  
+  <div class="lula" style="margin-bottom:10px">
+    <div><span class="badge lula">Lula</span>
+      <span class="note">intenção 2.6/10 &middot; ajustada 2.6/10</span></div>
+    <div class="bar"><i style="width:26.0%"></i></div>
+    <div class="bar" style="height:6px;opacity:.6"><i style="width:26.0%"></i></div>
+  </div>
+  
+  <div class="flavio" style="margin-bottom:10px">
+    <div><span class="badge flavio">Flávio Bolsonaro</span>
+      <span class="note">intenção 5.9/10 &middot; ajustada 5.6/10</span></div>
+    <div class="bar"><i style="width:59.0%"></i></div>
+    <div class="bar" style="height:6px;opacity:.6"><i style="width:56.0%"></i></div>
+  </div>
+  
+  <div class="scale"><span>Mais Estado</span><span>Menos Estado</span></div>
+  <div class="note">Barra grossa: o que promete. Barra fina: ajustada pelo detalhamento do plano.</div>
+</div>
+
+
+<h2>Top 5 propostas econômicas</h2>
+<div class="card tablewrap">
+<table>
+  <thead><tr><th>Tema</th><th>Lula</th><th>Flávio Bolsonaro</th><th>Mais liberal</th></tr></thead>
+  <tbody>
+  
+  <tr>
+    <td><b>Gastos públicos e fiscal</b></td>
+    
+    <td>Mantém o arcabouço fiscal; meta de ir de déficit de 0,5% do PIB (2026) a superávit de 1,5% em 2030. Não prevê cortes de despesa.<br>
+      <span class="pill">liberal 3/10</span>
+      <span class="pill">detalhe: médio</span></td>
+    
+    <td>&#39;Tesouraço&#39;: reforma administrativa, corte de ao menos 10 ministérios e de cargos comissionados, teto da dívida. Equipe cita ~1,5% do PIB (R$ 190 bi), fora do plano oficial.<br>
+      <span class="pill">liberal 7/10</span>
+      <span class="pill">detalhe: baixa</span></td>
+    
+    <td><span class="lead flavio">Flávio Bolsonaro</span></td>
+  </tr>
+  
+  <tr>
+    <td><b>Impostos</b></td>
+    
+    <td>Implementar a reforma do consumo aprovada; manter isenção de IR até R$ 5 mil, tributação de offshores/fundos exclusivos e Imposto Seletivo.<br>
+      <span class="pill">liberal 3/10</span>
+      <span class="pill">detalhe: alta</span></td>
+    
+    <td>Revisar a reforma para reduzir a carga (IVA menor; citou 20%), cortar tributos sobre energia e combustíveis e desonerar exportações. Não diz quais tributos nem a compensação.<br>
+      <span class="pill">liberal 7/10</span>
+      <span class="pill">detalhe: baixa</span></td>
+    
+    <td><span class="lead flavio">Flávio Bolsonaro</span></td>
+  </tr>
+  
+  <tr>
+    <td><b>Estatais e privatizações</b></td>
+    
+    <td>Estatais como instrumento de política industrial e energética; Petrobras na distribuição de combustíveis; descarta privatizar os Correios.<br>
+      <span class="pill">liberal 1/10</span>
+      <span class="pill">detalhe: alta</span></td>
+    
+    <td>Retomar o Programa Nacional de Desestatização, caso a caso. Não lista empresas; analistas não esperam privatização de Petrobras ou Banco do Brasil. Caixa vira &#39;Banco da Prosperidade&#39;.<br>
+      <span class="pill">liberal 6/10</span>
+      <span class="pill">detalhe: baixa</span></td>
+    
+    <td><span class="lead flavio">Flávio Bolsonaro</span></td>
+  </tr>
+  
+  <tr>
+    <td><b>Trabalho e renda</b></td>
+    
+    <td>Fim da escala 6x1 (40h semanais sem redução salarial); ganho real do salário mínimo (teto de 2,5%/ano); proteção a trabalhadores de plataformas.<br>
+      <span class="pill">liberal 3/10</span>
+      <span class="pill">detalhe: alta</span></td>
+    
+    <td>Reduzir gradualmente encargos sobre a folha; contratos para jovens de 18-24 e maiores de 50 desempregados; jornadas flexíveis. Também passou a apoiar o fim da 6x1.<br>
+      <span class="pill">liberal 7/10</span>
+      <span class="pill">detalhe: médio</span></td>
+    
+    <td><span class="lead flavio">Flávio Bolsonaro</span></td>
+  </tr>
+  
+  <tr>
+    <td><b>Infraestrutura e investimento</b></td>
+    
+    <td>Novo PAC (~R$ 1,9 tri previstos), mais concessões ferroviárias, portos e aeroportos regionais. Sem meta numérica de PIB.<br>
+      <span class="pill">liberal 3/10</span>
+      <span class="pill">detalhe: alta</span></td>
+    
+    <td>R$ 900 bi em 4 anos via PPPs, concessões e fundo de ativos da União; meta de PIB de 4% ao ano por uma década. Fontes de recurso não especificadas.<br>
+      <span class="pill">liberal 6/10</span>
+      <span class="pill">detalhe: baixa</span></td>
+    
+    <td><span class="lead flavio">Flávio Bolsonaro</span></td>
+  </tr>
+  
+  <tr>
+    <td><b>Média do Top 5</b></td>
+    <td><b>2.6</b> (ajust. 2.7)</td>
+    <td><b>6.6</b> (ajust. 6.0)</td>
+    <td></td>
+  </tr>
+  </tbody>
+</table>
+</div>
+
+
+<h2>Por setor</h2>
+<div class="tabs" id="tabs">
+  <button aria-pressed="true" data-id="todos">Todos</button>
+  <button aria-pressed="false" data-id="fiscal">Gastos públicos e fiscal</button><button aria-pressed="false" data-id="tributos">Impostos</button><button aria-pressed="false" data-id="estatais">Estatais e privatizações</button><button aria-pressed="false" data-id="trabalho">Trabalho e renda</button><button aria-pressed="false" data-id="infra">Infraestrutura e investimento</button><button aria-pressed="false" data-id="energia">Energia e petróleo</button><button aria-pressed="false" data-id="credito">Crédito e indústria</button><button aria-pressed="false" data-id="agro">Agronegócio</button><button aria-pressed="false" data-id="social">Habitação e proteção social</button>
+</div>
+
+<div class="card sector" data-setor="fiscal">
+  <h3>Gastos públicos e fiscal
+    <span class="lead flavio">Mais liberal: Flávio Bolsonaro</span>
+    
+  </h3>
+  <div class="grid2">
+    
+    <div class="lula">
+      <span class="badge lula">Lula</span>
+      <p style="margin:8px 0">Mantém o arcabouço fiscal; meta de ir de déficit de 0,5% do PIB (2026) a superávit de 1,5% em 2030. Não prevê cortes de despesa.</p>
+      <div class="bar"><i style="width:30%"></i></div>
+      <div class="scale"><span>Mais Estado</span><span>3/10 &middot; ajustada 3.4</span><span>Menos Estado</span></div>
+    </div>
+    
+    <div class="flavio">
+      <span class="badge flavio">Flávio Bolsonaro</span>
+      <p style="margin:8px 0">&#39;Tesouraço&#39;: reforma administrativa, corte de ao menos 10 ministérios e de cargos comissionados, teto da dívida. Equipe cita ~1,5% do PIB (R$ 190 bi), fora do plano oficial.</p>
+      <div class="bar"><i style="width:70%"></i></div>
+      <div class="scale"><span>Mais Estado</span><span>7/10 &middot; ajustada 6.2</span><span>Menos Estado</span></div>
+    </div>
+    
+  </div>
+</div>
+
+<div class="card sector" data-setor="tributos">
+  <h3>Impostos
+    <span class="lead flavio">Mais liberal: Flávio Bolsonaro</span>
+    
+  </h3>
+  <div class="grid2">
+    
+    <div class="lula">
+      <span class="badge lula">Lula</span>
+      <p style="margin:8px 0">Implementar a reforma do consumo aprovada; manter isenção de IR até R$ 5 mil, tributação de offshores/fundos exclusivos e Imposto Seletivo.</p>
+      <div class="bar"><i style="width:30%"></i></div>
+      <div class="scale"><span>Mais Estado</span><span>3/10 &middot; ajustada 3.0</span><span>Menos Estado</span></div>
+    </div>
+    
+    <div class="flavio">
+      <span class="badge flavio">Flávio Bolsonaro</span>
+      <p style="margin:8px 0">Revisar a reforma para reduzir a carga (IVA menor; citou 20%), cortar tributos sobre energia e combustíveis e desonerar exportações. Não diz quais tributos nem a compensação.</p>
+      <div class="bar"><i style="width:70%"></i></div>
+      <div class="scale"><span>Mais Estado</span><span>7/10 &middot; ajustada 6.2</span><span>Menos Estado</span></div>
+    </div>
+    
+  </div>
+</div>
+
+<div class="card sector" data-setor="estatais">
+  <h3>Estatais e privatizações
+    <span class="lead flavio">Mais liberal: Flávio Bolsonaro</span>
+    
+  </h3>
+  <div class="grid2">
+    
+    <div class="lula">
+      <span class="badge lula">Lula</span>
+      <p style="margin:8px 0">Estatais como instrumento de política industrial e energética; Petrobras na distribuição de combustíveis; descarta privatizar os Correios.</p>
+      <div class="bar"><i style="width:10%"></i></div>
+      <div class="scale"><span>Mais Estado</span><span>1/10 &middot; ajustada 1.0</span><span>Menos Estado</span></div>
+    </div>
+    
+    <div class="flavio">
+      <span class="badge flavio">Flávio Bolsonaro</span>
+      <p style="margin:8px 0">Retomar o Programa Nacional de Desestatização, caso a caso. Não lista empresas; analistas não esperam privatização de Petrobras ou Banco do Brasil. Caixa vira &#39;Banco da Prosperidade&#39;.</p>
+      <div class="bar"><i style="width:60%"></i></div>
+      <div class="scale"><span>Mais Estado</span><span>6/10 &middot; ajustada 5.6</span><span>Menos Estado</span></div>
+    </div>
+    
+  </div>
+</div>
+
+<div class="card sector" data-setor="trabalho">
+  <h3>Trabalho e renda
+    <span class="lead flavio">Mais liberal: Flávio Bolsonaro</span>
+    
+  </h3>
+  <div class="grid2">
+    
+    <div class="lula">
+      <span class="badge lula">Lula</span>
+      <p style="margin:8px 0">Fim da escala 6x1 (40h semanais sem redução salarial); ganho real do salário mínimo (teto de 2,5%/ano); proteção a trabalhadores de plataformas.</p>
+      <div class="bar"><i style="width:30%"></i></div>
+      <div class="scale"><span>Mais Estado</span><span>3/10 &middot; ajustada 3.0</span><span>Menos Estado</span></div>
+    </div>
+    
+    <div class="flavio">
+      <span class="badge flavio">Flávio Bolsonaro</span>
+      <p style="margin:8px 0">Reduzir gradualmente encargos sobre a folha; contratos para jovens de 18-24 e maiores de 50 desempregados; jornadas flexíveis. Também passou a apoiar o fim da 6x1.</p>
+      <div class="bar"><i style="width:70%"></i></div>
+      <div class="scale"><span>Mais Estado</span><span>7/10 &middot; ajustada 6.6</span><span>Menos Estado</span></div>
+    </div>
+    
+  </div>
+</div>
+
+<div class="card sector" data-setor="infra">
+  <h3>Infraestrutura e investimento
+    <span class="lead flavio">Mais liberal: Flávio Bolsonaro</span>
+    
+  </h3>
+  <div class="grid2">
+    
+    <div class="lula">
+      <span class="badge lula">Lula</span>
+      <p style="margin:8px 0">Novo PAC (~R$ 1,9 tri previstos), mais concessões ferroviárias, portos e aeroportos regionais. Sem meta numérica de PIB.</p>
+      <div class="bar"><i style="width:30%"></i></div>
+      <div class="scale"><span>Mais Estado</span><span>3/10 &middot; ajustada 3.0</span><span>Menos Estado</span></div>
+    </div>
+    
+    <div class="flavio">
+      <span class="badge flavio">Flávio Bolsonaro</span>
+      <p style="margin:8px 0">R$ 900 bi em 4 anos via PPPs, concessões e fundo de ativos da União; meta de PIB de 4% ao ano por uma década. Fontes de recurso não especificadas.</p>
+      <div class="bar"><i style="width:60%"></i></div>
+      <div class="scale"><span>Mais Estado</span><span>6/10 &middot; ajustada 5.6</span><span>Menos Estado</span></div>
+    </div>
+    
+  </div>
+</div>
+
+<div class="card sector" data-setor="energia">
+  <h3>Energia e petróleo
+    <span class="lead flavio">Mais liberal: Flávio Bolsonaro</span>
+    
+  </h3>
+  <div class="grid2">
+    
+    <div class="lula">
+      <span class="badge lula">Lula</span>
+      <p style="margin:8px 0">Petrobras central: mais exploração, refino e volta à distribuição de combustíveis.</p>
+      <div class="bar"><i style="width:20%"></i></div>
+      <div class="scale"><span>Mais Estado</span><span>2/10 &middot; ajustada 2.0</span><span>Menos Estado</span></div>
+    </div>
+    
+    <div class="flavio">
+      <span class="badge flavio">Flávio Bolsonaro</span>
+      <p style="margin:8px 0">Expandir petróleo e gás, liberar fracking e reduzir impostos sobre energia e combustíveis.</p>
+      <div class="bar"><i style="width:60%"></i></div>
+      <div class="scale"><span>Mais Estado</span><span>6/10 &middot; ajustada 5.8</span><span>Menos Estado</span></div>
+    </div>
+    
+  </div>
+</div>
+
+<div class="card sector" data-setor="credito">
+  <h3>Crédito e indústria
+    <span class="lead flavio">Mais liberal: Flávio Bolsonaro</span>
+    
+  </h3>
+  <div class="grid2">
+    
+    <div class="lula">
+      <span class="badge lula">Lula</span>
+      <p style="margin:8px 0">Nova Indústria Brasil, BNDES, fundos garantidores e programas como Pronampe e Acredita (&gt; R$ 130 bi).</p>
+      <div class="bar"><i style="width:20%"></i></div>
+      <div class="scale"><span>Mais Estado</span><span>2/10 &middot; ajustada 2.0</span><span>Menos Estado</span></div>
+    </div>
+    
+    <div class="flavio">
+      <span class="badge flavio">Flávio Bolsonaro</span>
+      <p style="margin:8px 0">Refinanciamento de dívidas e crédito via Caixa; foco em desregulamentação e menor custo de produção.</p>
+      <div class="bar"><i style="width:50%"></i></div>
+      <div class="scale"><span>Mais Estado</span><span>5/10 &middot; ajustada 5.0</span><span>Menos Estado</span></div>
+    </div>
+    
+  </div>
+</div>
+
+<div class="card sector" data-setor="agro">
+  <h3>Agronegócio
+    <span class="lead flavio">Mais liberal: Flávio Bolsonaro</span>
+    
+  </h3>
+  <div class="grid2">
+    
+    <div class="lula">
+      <span class="badge lula">Lula</span>
+      <p style="margin:8px 0">Ampliar o Plano Safra, diversificar fontes de financiamento e simplificar o crédito.</p>
+      <div class="bar"><i style="width:40%"></i></div>
+      <div class="scale"><span>Mais Estado</span><span>4/10 &middot; ajustada 4.2</span><span>Menos Estado</span></div>
+    </div>
+    
+    <div class="flavio">
+      <span class="badge flavio">Flávio Bolsonaro</span>
+      <p style="margin:8px 0">Ampliar o seguro rural, reorganizar dívidas e aumentar a capacidade de armazenagem.</p>
+      <div class="bar"><i style="width:50%"></i></div>
+      <div class="scale"><span>Mais Estado</span><span>5/10 &middot; ajustada 5.0</span><span>Menos Estado</span></div>
+    </div>
+    
+  </div>
+</div>
+
+<div class="card sector" data-setor="social">
+  <h3>Habitação e proteção social
+    <span class="lead flavio">Mais liberal: Flávio Bolsonaro</span>
+    
+  </h3>
+  <div class="grid2">
+    
+    <div class="lula">
+      <span class="badge lula">Lula</span>
+      <p style="margin:8px 0">Manter e ampliar Bolsa Família e programas de proteção social; Novo PAC habitação.</p>
+      <div class="bar"><i style="width:20%"></i></div>
+      <div class="scale"><span>Mais Estado</span><span>2/10 &middot; ajustada 2.0</span><span>Menos Estado</span></div>
+    </div>
+    
+    <div class="flavio">
+      <span class="badge flavio">Flávio Bolsonaro</span>
+      <p style="margin:8px 0">Retomar o Casa Verde e Amarela (meta de 2,5 milhões de moradias).</p>
+      <div class="bar"><i style="width:40%"></i></div>
+      <div class="scale"><span>Mais Estado</span><span>4/10 &middot; ajustada 4.2</span><span>Menos Estado</span></div>
+    </div>
+    
+  </div>
+</div>
+
+
+
+<h2>Baixe e leia os planos oficiais</h2>
+<div class="card">
+  
+  <div class="doc">
+    <div><span class="badge lula">Lula</span>
+      <div>Programa de Governo Lula 2026 (PDF)</div><div class="note">PDF</div></div>
+    <a class="btn" href="https://static.poder360.com.br/uploads/2026/08/Programa-Governo-LULA-2026.pdf" target="_blank" rel="noopener">Abrir</a>
+  </div>
+  
+  <div class="doc">
+    <div><span class="badge flavio">Flávio Bolsonaro</span>
+      <div>&#39;Para o Brasil Vencer o Atraso&#39; (76 págs.) - buscar no TSE</div><div class="note">Portal TSE</div></div>
+    <a class="btn" href="https://divulgacandcontas.tse.jus.br/" target="_blank" rel="noopener">Abrir</a>
+  </div>
+  
+  <div class="doc">
+    <div><span class="badge flavio">Flávio Bolsonaro</span>
+      <div>Resumo do plano - Agência Brasil</div><div class="note">Reportagem</div></div>
+    <a class="btn" href="https://agenciabrasil.ebc.com.br/politica/noticia/2026-09/flavio-bolsonaro-propoe-enxugar-estado-e-endurecer-acoes-de-seguranca" target="_blank" rel="noopener">Abrir</a>
+  </div>
+  
+  <p class="note">Não hospedamos os documentos: os links levam à fonte original. Confira sempre o arquivo registrado no TSE.</p>
+</div>
+
+
+<h2 id="metodologia">Como chegamos a essas notas</h2>
+<div class="card">
+  <ul>
+    <li><b>Escala "liberal" (0 a 10):</b> 0 = muito Estado (estatais, subsídio direto, mais controle); 10 = pouco Estado (corte de gasto, privatização, menos imposto, desregulação).</li>
+    <li><b>Detalhamento:</b> alta (fator 1.0), média (0.8) ou baixa (0.6). A nota <b>ajustada</b> aproxima a nota do neutro (5) quando a proposta é vaga, para separar quem <i>promete</i> de quem <i>especifica</i>.</li>
+    <li><b>Julgamento editorial:</b> as notas são uma régua simples e aberta, não uma verdade científica. Pessoas diferentes podem pesar os temas de outra forma. Edite <code>data.py</code> e o site recalcula.</li>
+    <li><b>Limites:</b> usamos os planos registrados no TSE e a imprensa. Declarações de campanha podem mudar posições (ex.: Flávio passou a apoiar o fim da 6x1). Ambos dependem do Congresso.</li>
+  </ul>
+  <p class="note">Fontes:
+    <a href="https://bpmoney.com.br/economia/lula-x-flavio-propostas-economicas-2026/" target="_blank" rel="noopener">BPMoney - Compare as propostas econômicas</a> &middot; <a href="https://forbes.com.br/forbes-money/2026/10/tesouraco-flavio-bolsonaro-plano-economico/" target="_blank" rel="noopener">Forbes Brasil - &#39;Tesouraço&#39;</a> &middot; <a href="https://www.nexojornal.com.br/expresso/2026/09/24/flavio-bolsonaro-proposta-economica-ministra-economia-flavio" target="_blank" rel="noopener">Nexo - O plano de Flávio é um cheque em branco?</a> &middot; <a href="https://www.infomoney.com.br/politica/o-que-lula-ja-prometeu-para-a-economia-se-conquistar-a-reeleicao/" target="_blank" rel="noopener">InfoMoney - O que Lula prometeu para a economia</a> &middot; <a href="https://exame.com/brasil/eleicoes-2026-veja-os-planos-de-economia-de-lula-e-flavio-bolsonaro/" target="_blank" rel="noopener">Exame - Planos de Lula e Flávio</a> &middot; <a href="https://www.gazetadopovo.com.br/eleicoes/2026/plano-de-governo-lula-economia/" target="_blank" rel="noopener">Gazeta do Povo - Plano de Lula</a>
+  </p>
+</div>
+
+<footer>Dados em JSON: <a href="/api/comparacao">/api/comparacao</a>. Projeto independente e sem fins partidários.</footer>
+</div>
+
+<script>
+  const tabs = document.getElementById('tabs');
+  tabs.addEventListener('click', e => {
+    const b = e.target.closest('button'); if (!b) return;
+    tabs.querySelectorAll('button').forEach(x => x.setAttribute('aria-pressed', x === b));
+    document.querySelectorAll('.sector').forEach(el => {
+      el.hidden = b.dataset.id !== 'todos' && el.dataset.setor !== b.dataset.id;
+    });
+  });
+</script>
+</body>
+</html>

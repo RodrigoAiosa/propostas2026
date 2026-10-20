@@ -19,3 +19,11 @@ O site e a API `/api/comparacao` recalculam sozinhos.
 ## Aviso
 As notas são uma régua editorial aberta, não uma verdade científica. Os PDFs dos planos
 não são hospedados: os links apontam para a fonte original (confira o registro no TSE).
+
+## index.html estático
+`python gerar_index.py` gera `index.html` e `public/index.html` com os mesmos dados.
+Rode de novo sempre que editar `data.py`.
+
+## Erro de deploy "unused_function ... app.py"
+Causa: `vercel.json` com bloco `functions` apontando para `app.py`. Foi removido;
+o Flask é detectado automaticamente pelo `app.py`.
