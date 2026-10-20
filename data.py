@@ -123,25 +123,19 @@ SETORES = [
     },
 ]
 
-# Planos oficiais. Não hospedamos os PDFs: apontamos para a fonte original.
+# Planos oficiais registrados no TSE (site oficial). Não hospedamos os PDFs.
 DOCUMENTOS = [
     {
         "candidato": "lula",
-        "titulo": "Programa de Governo Lula 2026 (PDF)",
-        "url": "https://static.poder360.com.br/uploads/2026/08/Programa-Governo-LULA-2026.pdf",
-        "tipo": "PDF",
+        "titulo": "Proposta de governo de Lula (PT, nº 13) - PDF oficial no TSE",
+        "url": "https://www.tse.jus.br/eleicoes/eleicoes-2026-content/arquivos/proposta-pt",
+        "tipo": "PDF - site do TSE",
     },
     {
         "candidato": "flavio",
-        "titulo": "'Para o Brasil Vencer o Atraso' (76 págs.) - buscar no TSE",
-        "url": "https://divulgacandcontas.tse.jus.br/",
-        "tipo": "Portal TSE",
-    },
-    {
-        "candidato": "flavio",
-        "titulo": "Resumo do plano - Agência Brasil",
-        "url": "https://agenciabrasil.ebc.com.br/politica/noticia/2026-09/flavio-bolsonaro-propoe-enxugar-estado-e-endurecer-acoes-de-seguranca",
-        "tipo": "Reportagem",
+        "titulo": "'Para o Brasil Vencer o Atraso' de Flávio Bolsonaro (PL, nº 22) - PDF oficial no TSE",
+        "url": "https://www.tse.jus.br/eleicoes/eleicoes-2026-content/arquivos/proposta-pl",
+        "tipo": "PDF - site do TSE",
     },
 ]
 
