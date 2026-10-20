@@ -11,6 +11,8 @@ para responder: "quem REALMENTE entrega menos Estado?" e não só "quem promete"
 Todas as notas são um julgamento editorial transparente: edite aqui e o site recalcula.
 """
 
+from conteudo import FALTAM, SELO
+
 ATUALIZADO_EM = "20/10/2026"
 
 FATOR_DETALHAMENTO = {"alta": 1.0, "media": 0.8, "baixa": 0.6}
@@ -165,7 +167,12 @@ def calcular():
         item = {"id": s["id"], "nome": s["nome"], "top5": s["top5"]}
         for c in CANDIDATOS:
             d = s[c]
-            item[c] = {**d, "ajustada": _ajustada(d["nota"], d["detalhamento"])}
+            item[c] = {
+                **d,
+                "ajustada": _ajustada(d["nota"], d["detalhamento"]),
+                "faltam": FALTAM.get((s["id"], c), []),
+                "selo": SELO[d["detalhamento"]],
+            }
         mais_liberal = max(CANDIDATOS, key=lambda c: item[c]["nota"])
         empate = item["lula"]["nota"] == item["flavio"]["nota"]
         item["mais_liberal"] = None if empate else mais_liberal

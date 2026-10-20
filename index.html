@@ -4,17 +4,21 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Lula x Flávio: propostas econômicas em linguagem simples</title>
-<meta name="description" content="Compare as propostas econômicas de Lula e Flávio Bolsonaro, baixe os planos e veja quem propõe menos Estado.">
+<meta name="description" content="Compare as propostas econômicas de Lula e Flávio Bolsonaro, simule o efeito no seu bolso, faça o quiz e veja quem propõe menos Estado.">
 <style>
   :root{--bg:#f7f7f5;--card:#fff;--ink:#1b1b1b;--mut:#666;--line:#e3e3df;--lula:#c0392b;--flavio:#1f5fbf}
   @media(prefers-color-scheme:dark){:root{--bg:#141414;--card:#1e1e1e;--ink:#eee;--mut:#9a9a9a;--line:#333}}
   *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
   body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
   .wrap{max-width:980px;margin:0 auto;padding:0 16px 64px}
   header{padding:32px 0 8px}
   h1{font-size:1.7rem;margin:0 0 6px;line-height:1.2}
-  h2{font-size:1.25rem;margin:36px 0 12px}
+  h2{font-size:1.25rem;margin:36px 0 12px;scroll-margin-top:12px}
   p.sub{color:var(--mut);margin:0}
+  .nav{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0 0}
+  .nav a{font-size:.82rem;text-decoration:none;border:1px solid var(--line);background:var(--card);padding:5px 12px;border-radius:99px}
+  .nav a:hover{border-color:var(--ink)}
   .card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:18px}
   .grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
   @media(max-width:700px){.grid2{grid-template-columns:1fr}}
@@ -22,7 +26,6 @@
   .lula{--c:var(--lula)} .flavio{--c:var(--flavio)}
   .badge.lula{background:var(--lula)} .badge.flavio{background:var(--flavio)}
   .verdict .name{font-size:1.15rem;font-weight:700;color:var(--c)}
-  .big{font-size:2rem;font-weight:800;color:var(--c)}
   .bar{height:10px;background:var(--line);border-radius:99px;overflow:hidden;margin:6px 0}
   .bar>i{display:block;height:100%;background:var(--c);border-radius:99px}
   .scale{display:flex;justify-content:space-between;font-size:.72rem;color:var(--mut)}
@@ -30,9 +33,10 @@
   th,td{padding:10px 8px;border-bottom:1px solid var(--line);vertical-align:top;text-align:left}
   th{font-size:.78rem;text-transform:uppercase;letter-spacing:.04em;color:var(--mut)}
   .tablewrap{overflow-x:auto}
-  .pill{font-size:.72rem;padding:1px 8px;border-radius:99px;border:1px solid var(--line);color:var(--mut)}
+  .pill{display:inline-block;font-size:.72rem;padding:1px 8px;border-radius:99px;border:1px solid var(--line);color:var(--mut);margin:2px 4px 2px 0}
   .lead{font-weight:700;font-size:.8rem}
   .lead.lula{color:var(--lula)} .lead.flavio{color:var(--flavio)}
+  .note{font-size:.85rem;color:var(--mut)}
   .tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}
   .tabs button{border:1px solid var(--line);background:var(--card);color:var(--ink);padding:7px 14px;border-radius:99px;cursor:pointer;font:inherit;font-size:.88rem}
   .tabs button[aria-pressed=true]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
@@ -40,10 +44,48 @@
   .sector h3{margin:0 0 10px;font-size:1.05rem;display:flex;gap:10px;align-items:center;flex-wrap:wrap}
   .doc{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid var(--line)}
   .doc:last-child{border:0}
-  a{color:inherit} a.btn{background:var(--ink);color:var(--bg);padding:7px 14px;border-radius:8px;text-decoration:none;font-size:.85rem;white-space:nowrap}
-  .note{font-size:.85rem;color:var(--mut)}
-  footer{margin-top:40px;font-size:.82rem;color:var(--mut)}
+  a{color:inherit}
+  a.btn,button.btn{background:var(--ink);color:var(--bg);padding:8px 16px;border-radius:8px;text-decoration:none;font:inherit;font-size:.88rem;white-space:nowrap;border:0;cursor:pointer}
   [hidden]{display:none!important}
+
+  /* selo de detalhamento */
+  .selo{display:inline-block;font-size:.72rem;font-weight:600;padding:1px 9px;border-radius:99px;border:1px solid currentColor;margin:2px 4px 2px 0;letter-spacing:.02em}
+  .s-alta{color:#2f9e44} .s-media{color:#d9a400} .s-baixa{color:#e0701a}
+  details.falta{margin-top:6px;font-size:.85rem}
+  details.falta summary{cursor:pointer;color:var(--mut)}
+  details.falta ul{margin:6px 0 0;padding-left:18px}
+
+  /* formulário do simulador */
+  .form{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:14px 0}
+  @media(max-width:800px){.form{grid-template-columns:1fr 1fr}}
+  @media(max-width:480px){.form{grid-template-columns:1fr}}
+  label.f{display:flex;flex-direction:column;gap:4px;font-size:.82rem;color:var(--mut)}
+  select,input[type=search]{font:inherit;font-size:.95rem;padding:9px 10px;border-radius:8px;border:1px solid var(--line);background:var(--bg);color:var(--ink);width:100%}
+  .imp{border:1px solid var(--line);border-radius:10px;padding:12px;margin-top:10px;background:var(--bg)}
+  .imp b{display:block;margin-bottom:2px}
+  .imp p{margin:0 0 6px;font-size:.92rem}
+  .p-no_plano{color:#2f9e44;border-color:#2f9e44}
+  .p-congresso{color:#d9a400;border-color:#d9a400}
+  .p-sem_detalhe{color:#e0701a;border-color:#e0701a}
+  .p-campanha{color:#8a8a8a;border-color:#8a8a8a}
+
+  /* quiz */
+  .qp{font-size:1.15rem;margin:14px 0}
+  .opt{border:1px solid var(--line);border-radius:10px;padding:14px;margin-bottom:10px;background:var(--bg)}
+  .opt p{margin:0 0 10px}
+  button.skip{background:none;border:0;color:var(--mut);text-decoration:underline;cursor:pointer;font:inherit;font-size:.85rem;padding:6px 0}
+  .res-row{margin:14px 0}
+  .res-row .bar{height:14px}
+
+  /* glossário */
+  .termo{border-bottom:1px dotted currentColor;cursor:help}
+  #tip{position:fixed;z-index:50;max-width:290px;background:#111;color:#fff;padding:10px 12px;border-radius:8px;font-size:.82rem;line-height:1.4;box-shadow:0 4px 18px rgba(0,0,0,.4);pointer-events:none}
+  #tip b{color:#ffd66b}
+  dl.gl-lista{margin:12px 0 0}
+  .gl{padding:10px 0;border-bottom:1px solid var(--line)}
+  .gl:last-child{border:0}
+  .gl dt{font-weight:700}
+  .gl dd{margin:2px 0 0;color:var(--mut)}
 </style>
 </head>
 <body>
@@ -52,11 +94,24 @@
 <header>
   <h1>Lula x Flávio Bolsonaro: o que cada um propõe para a economia</h1>
   <p class="sub">Atualizado em 20/10/2026 &middot; 2º turno em 25/10/2026 &middot; Site informativo, sem apoio a candidato.</p>
+  <nav class="nav" aria-label="Seções">
+    <a href="#veredito">Menos Estado</a>
+    <a href="#top5">Top 5</a>
+    <a href="#simulador">Meu bolso</a>
+    <a href="#quiz">Quiz</a>
+    <a href="#setores">Por setor</a>
+    <a href="#planos">Planos oficiais</a>
+    <a href="#glossario">Glossário</a>
+    <a href="#metodologia">Metodologia</a>
+  </nav>
 </header>
 
 
 
-<h2>Quem propõe menos Estado?</h2>
+
+
+
+<h2 id="veredito">Quem propõe menos Estado?</h2>
 <div class="grid2 verdict">
   <div class="card flavio">
     <div class="note">Mais liberal no papel (intenção)</div>
@@ -105,7 +160,7 @@
 </div>
 
 
-<h2>Top 5 propostas econômicas</h2>
+<h2 id="top5">Top 5 propostas econômicas</h2>
 <div class="card tablewrap">
 <table>
   <thead><tr><th>Tema</th><th>Lula</th><th>Flávio Bolsonaro</th><th>Mais liberal</th></tr></thead>
@@ -114,13 +169,25 @@
   <tr>
     <td><b>Gastos públicos e fiscal</b></td>
     
-    <td>Mantém o arcabouço fiscal; meta de ir de déficit de 0,5% do PIB (2026) a superávit de 1,5% em 2030. Não prevê cortes de despesa.<br>
-      <span class="pill">liberal 3/10</span>
-      <span class="pill">detalhe: médio</span></td>
+    <td>
+      <div data-gloss>Mantém o arcabouço fiscal; meta de ir de déficit de 0,5% do PIB (2026) a superávit de 1,5% em 2030. Não prevê cortes de despesa.</div>
+      <span class="pill">liberal 3/10</span><span class="selo s-media" title="Quão concreta e verificável é a proposta no plano">●●○ Parcial</span>
+      
+<details class="falta"><summary>O que falta saber (2)</summary>
+  <ul data-gloss><li>Não indica quais despesas seriam contidas para chegar à meta fiscal.</li><li>Controle das despesas obrigatórias e financiamento dos compromissos de renda não são explicados.</li></ul>
+</details>
+
+    </td>
     
-    <td>&#39;Tesouraço&#39;: reforma administrativa, corte de ao menos 10 ministérios e de cargos comissionados, teto da dívida. Equipe cita ~1,5% do PIB (R$ 190 bi), fora do plano oficial.<br>
-      <span class="pill">liberal 7/10</span>
-      <span class="pill">detalhe: baixa</span></td>
+    <td>
+      <div data-gloss>&#39;Tesouraço&#39;: reforma administrativa, corte de ao menos 10 ministérios e de cargos comissionados, teto da dívida. Equipe cita ~1,5% do PIB (R$ 190 bi), fora do plano oficial.</div>
+      <span class="pill">liberal 7/10</span><span class="selo s-baixa" title="Quão concreta e verificável é a proposta no plano">●○○ Vaga</span>
+      
+<details class="falta"><summary>O que falta saber (2)</summary>
+  <ul data-gloss><li>Não lista quais despesas seriam cortadas nem apresenta cronograma.</li><li>O corte de cerca de 1,5% do PIB (R$ 190 bi) foi dito pela equipe, mas não consta como meta no plano protocolado no TSE.</li></ul>
+</details>
+
+    </td>
     
     <td><span class="lead flavio">Flávio Bolsonaro</span></td>
   </tr>
@@ -128,13 +195,25 @@
   <tr>
     <td><b>Impostos</b></td>
     
-    <td>Implementar a reforma do consumo aprovada; manter isenção de IR até R$ 5 mil, tributação de offshores/fundos exclusivos e Imposto Seletivo.<br>
-      <span class="pill">liberal 3/10</span>
-      <span class="pill">detalhe: alta</span></td>
+    <td>
+      <div data-gloss>Implementar a reforma do consumo aprovada; manter isenção de IR até R$ 5 mil, tributação de offshores/fundos exclusivos e Imposto Seletivo.</div>
+      <span class="pill">liberal 3/10</span><span class="selo s-alta" title="Quão concreta e verificável é a proposta no plano">●●● Detalhada</span>
+      
+<details class="falta"><summary>O que falta saber (1)</summary>
+  <ul data-gloss><li>A alíquota final do IVA depende de regulamentação (a estimativa de julho do Comitê Gestor do IBS, de 27,91%, não é definitiva).</li></ul>
+</details>
+
+    </td>
     
-    <td>Revisar a reforma para reduzir a carga (IVA menor; citou 20%), cortar tributos sobre energia e combustíveis e desonerar exportações. Não diz quais tributos nem a compensação.<br>
-      <span class="pill">liberal 7/10</span>
-      <span class="pill">detalhe: baixa</span></td>
+    <td>
+      <div data-gloss>Revisar a reforma para reduzir a carga (IVA menor; citou 20%), cortar tributos sobre energia e combustíveis e desonerar exportações. Não diz quais tributos nem a compensação.</div>
+      <span class="pill">liberal 7/10</span><span class="selo s-baixa" title="Quão concreta e verificável é a proposta no plano">●○○ Vaga</span>
+      
+<details class="falta"><summary>O que falta saber (3)</summary>
+  <ul data-gloss><li>Não diz quais tributos seriam reduzidos.</li><li>A alíquota de IVA de 20%, citada em evento, não aparece como compromisso no plano.</li><li>Não explica como compensaria a queda de arrecadação.</li></ul>
+</details>
+
+    </td>
     
     <td><span class="lead flavio">Flávio Bolsonaro</span></td>
   </tr>
@@ -142,13 +221,23 @@
   <tr>
     <td><b>Estatais e privatizações</b></td>
     
-    <td>Estatais como instrumento de política industrial e energética; Petrobras na distribuição de combustíveis; descarta privatizar os Correios.<br>
-      <span class="pill">liberal 1/10</span>
-      <span class="pill">detalhe: alta</span></td>
+    <td>
+      <div data-gloss>Estatais como instrumento de política industrial e energética; Petrobras na distribuição de combustíveis; descarta privatizar os Correios.</div>
+      <span class="pill">liberal 1/10</span><span class="selo s-alta" title="Quão concreta e verificável é a proposta no plano">●●● Detalhada</span>
+      
+<div class="note">Sem lacunas relevantes apontadas nas fontes consultadas.</div>
+
+    </td>
     
-    <td>Retomar o Programa Nacional de Desestatização, caso a caso. Não lista empresas; analistas não esperam privatização de Petrobras ou Banco do Brasil. Caixa vira &#39;Banco da Prosperidade&#39;.<br>
-      <span class="pill">liberal 6/10</span>
-      <span class="pill">detalhe: baixa</span></td>
+    <td>
+      <div data-gloss>Retomar o Programa Nacional de Desestatização, caso a caso. Não lista empresas; analistas não esperam privatização de Petrobras ou Banco do Brasil. Caixa vira &#39;Banco da Prosperidade&#39;.</div>
+      <span class="pill">liberal 6/10</span><span class="selo s-baixa" title="Quão concreta e verificável é a proposta no plano">●○○ Vaga</span>
+      
+<details class="falta"><summary>O que falta saber (2)</summary>
+  <ul data-gloss><li>Não lista quais estatais seriam privatizadas.</li><li>Prevê mudanças de gestão antes de decidir vendas, sem critérios definidos.</li></ul>
+</details>
+
+    </td>
     
     <td><span class="lead flavio">Flávio Bolsonaro</span></td>
   </tr>
@@ -156,13 +245,25 @@
   <tr>
     <td><b>Trabalho e renda</b></td>
     
-    <td>Fim da escala 6x1 (40h semanais sem redução salarial); ganho real do salário mínimo (teto de 2,5%/ano); proteção a trabalhadores de plataformas.<br>
-      <span class="pill">liberal 3/10</span>
-      <span class="pill">detalhe: alta</span></td>
+    <td>
+      <div data-gloss>Fim da escala 6x1 (40h semanais sem redução salarial); ganho real do salário mínimo (teto de 2,5%/ano); proteção a trabalhadores de plataformas.</div>
+      <span class="pill">liberal 3/10</span><span class="selo s-alta" title="Quão concreta e verificável é a proposta no plano">●●● Detalhada</span>
+      
+<details class="falta"><summary>O que falta saber (1)</summary>
+  <ul data-gloss><li>O fim da escala 6x1 depende de aprovação legislativa e de regras de transição.</li></ul>
+</details>
+
+    </td>
     
-    <td>Reduzir gradualmente encargos sobre a folha; contratos para jovens de 18-24 e maiores de 50 desempregados; jornadas flexíveis. Também passou a apoiar o fim da 6x1.<br>
-      <span class="pill">liberal 7/10</span>
-      <span class="pill">detalhe: médio</span></td>
+    <td>
+      <div data-gloss>Reduzir gradualmente encargos sobre a folha; contratos para jovens de 18-24 e maiores de 50 desempregados; jornadas flexíveis. Também passou a apoiar o fim da 6x1.</div>
+      <span class="pill">liberal 7/10</span><span class="selo s-media" title="Quão concreta e verificável é a proposta no plano">●●○ Parcial</span>
+      
+<details class="falta"><summary>O que falta saber (3)</summary>
+  <ul data-gloss><li>Não traz regra de reajuste real do salário mínimo.</li><li>Posições sobre reajuste de salários e aposentadorias seguem sem detalhamento (Folha, 14/10).</li><li>Regras dos novos modelos de contrato não são detalhadas.</li></ul>
+</details>
+
+    </td>
     
     <td><span class="lead flavio">Flávio Bolsonaro</span></td>
   </tr>
@@ -170,13 +271,25 @@
   <tr>
     <td><b>Infraestrutura e investimento</b></td>
     
-    <td>Novo PAC (~R$ 1,9 tri previstos), mais concessões ferroviárias, portos e aeroportos regionais. Sem meta numérica de PIB.<br>
-      <span class="pill">liberal 3/10</span>
-      <span class="pill">detalhe: alta</span></td>
+    <td>
+      <div data-gloss>Novo PAC (~R$ 1,9 tri previstos), mais concessões ferroviárias, portos e aeroportos regionais. Sem meta numérica de PIB.</div>
+      <span class="pill">liberal 3/10</span><span class="selo s-alta" title="Quão concreta e verificável é a proposta no plano">●●● Detalhada</span>
+      
+<details class="falta"><summary>O que falta saber (1)</summary>
+  <ul data-gloss><li>Os valores do Novo PAC são investimentos previstos, não necessariamente já executados.</li></ul>
+</details>
+
+    </td>
     
-    <td>R$ 900 bi em 4 anos via PPPs, concessões e fundo de ativos da União; meta de PIB de 4% ao ano por uma década. Fontes de recurso não especificadas.<br>
-      <span class="pill">liberal 6/10</span>
-      <span class="pill">detalhe: baixa</span></td>
+    <td>
+      <div data-gloss>R$ 900 bi em 4 anos via PPPs, concessões e fundo de ativos da União; meta de PIB de 4% ao ano por uma década. Fontes de recurso não especificadas.</div>
+      <span class="pill">liberal 6/10</span><span class="selo s-baixa" title="Quão concreta e verificável é a proposta no plano">●○○ Vaga</span>
+      
+<details class="falta"><summary>O que falta saber (3)</summary>
+  <ul data-gloss><li>Não diz quais imóveis e ativos da União entrariam no fundo.</li><li>Não define como o fundo seria administrado nem as condições financeiras das operações.</li><li>As fontes dos R$ 900 bi não são detalhadas.</li></ul>
+</details>
+
+    </td>
     
     <td><span class="lead flavio">Flávio Bolsonaro</span></td>
   </tr>
@@ -189,10 +302,57 @@
   </tr>
   </tbody>
 </table>
+<p class="note" style="margin:10px 0 0">Selo de detalhamento: <span class="selo s-alta">●●● Detalhada</span> <span class="selo s-media">●●○ Parcial</span> <span class="selo s-baixa">●○○ Vaga</span></p>
 </div>
 
 
-<h2>Por setor</h2>
+<h2 id="simulador">Quanto isso afeta o meu bolso?</h2>
+<div class="card">
+  <p class="note" style="margin-top:0">Responda 4 perguntas e veja quais propostas de cada candidato tocam o seu perfil. Não calculamos valores em reais: os planos quase não trazem números por pessoa.</p>
+  <div class="form">
+    
+    <label class="f">Sua renda mensal
+      <select id="s-renda">
+        <option value="">Selecione</option>
+        <option value="ate_3k" >Até R$ 3 mil</option><option value="3k_5k" >De R$ 3 mil a R$ 5 mil</option><option value="5k_10k" >De R$ 5 mil a R$ 10 mil</option><option value="acima_10k" >Acima de R$ 10 mil</option>
+      </select>
+    </label>
+    
+    <label class="f">Sua situação
+      <select id="s-vinculo">
+        <option value="">Selecione</option>
+        <option value="clt" >Empregado com carteira assinada (CLT)</option><option value="autonomo" >Autônomo, MEI ou trabalhador de aplicativo</option><option value="empresario" >Dono de empresa ou empregador</option><option value="servidor" >Servidor público</option><option value="aposentado" >Aposentado ou pensionista</option><option value="desempregado" >Desempregado</option><option value="produtor" >Produtor rural</option>
+      </select>
+    </label>
+    
+    <label class="f">Recebe Bolsa Família?
+      <select id="s-bolsa">
+        
+        <option value="nao" selected>Não</option><option value="sim" >Sim</option>
+      </select>
+    </label>
+    
+    <label class="f">Está endividado?
+      <select id="s-divida">
+        
+        <option value="nao" selected>Não</option><option value="sim" >Sim</option>
+      </select>
+    </label>
+    
+  </div>
+  <div id="s-out" aria-live="polite"></div>
+  <p class="note" style="margin-bottom:0">Como ler: <span class="pill p-no_plano">Está no plano</span><span class="pill p-congresso">Depende do Congresso</span><span class="pill p-sem_detalhe">Sem detalhe ou fonte</span><span class="pill p-campanha">Declaração de campanha</span>
+  A quantidade de propostas não mostra qual é melhor para você: leia o conteúdo de cada uma. Seus dados não saem do seu navegador.</p>
+</div>
+
+
+<h2 id="quiz">Quiz: com qual proposta você mais concorda?</h2>
+<div class="card">
+  <div id="quiz"><noscript>Ative o JavaScript para fazer o quiz.</noscript></div>
+</div>
+
+
+<h2 id="setores">Por setor</h2>
 <div class="tabs" id="tabs">
   <button aria-pressed="true" data-id="todos">Todos</button>
   <button aria-pressed="false" data-id="fiscal">Gastos públicos e fiscal</button><button aria-pressed="false" data-id="tributos">Impostos</button><button aria-pressed="false" data-id="estatais">Estatais e privatizações</button><button aria-pressed="false" data-id="trabalho">Trabalho e renda</button><button aria-pressed="false" data-id="infra">Infraestrutura e investimento</button><button aria-pressed="false" data-id="energia">Energia e petróleo</button><button aria-pressed="false" data-id="credito">Crédito e indústria</button><button aria-pressed="false" data-id="agro">Agronegócio</button><button aria-pressed="false" data-id="social">Habitação e proteção social</button>
@@ -206,17 +366,27 @@
   <div class="grid2">
     
     <div class="lula">
-      <span class="badge lula">Lula</span>
-      <p style="margin:8px 0">Mantém o arcabouço fiscal; meta de ir de déficit de 0,5% do PIB (2026) a superávit de 1,5% em 2030. Não prevê cortes de despesa.</p>
+      <span class="badge lula">Lula</span> <span class="selo s-media" title="Quão concreta e verificável é a proposta no plano">●●○ Parcial</span>
+      <p style="margin:8px 0" data-gloss>Mantém o arcabouço fiscal; meta de ir de déficit de 0,5% do PIB (2026) a superávit de 1,5% em 2030. Não prevê cortes de despesa.</p>
       <div class="bar"><i style="width:30%"></i></div>
       <div class="scale"><span>Mais Estado</span><span>3/10 &middot; ajustada 3.4</span><span>Menos Estado</span></div>
+      
+<details class="falta"><summary>O que falta saber (2)</summary>
+  <ul data-gloss><li>Não indica quais despesas seriam contidas para chegar à meta fiscal.</li><li>Controle das despesas obrigatórias e financiamento dos compromissos de renda não são explicados.</li></ul>
+</details>
+
     </div>
     
     <div class="flavio">
-      <span class="badge flavio">Flávio Bolsonaro</span>
-      <p style="margin:8px 0">&#39;Tesouraço&#39;: reforma administrativa, corte de ao menos 10 ministérios e de cargos comissionados, teto da dívida. Equipe cita ~1,5% do PIB (R$ 190 bi), fora do plano oficial.</p>
+      <span class="badge flavio">Flávio Bolsonaro</span> <span class="selo s-baixa" title="Quão concreta e verificável é a proposta no plano">●○○ Vaga</span>
+      <p style="margin:8px 0" data-gloss>&#39;Tesouraço&#39;: reforma administrativa, corte de ao menos 10 ministérios e de cargos comissionados, teto da dívida. Equipe cita ~1,5% do PIB (R$ 190 bi), fora do plano oficial.</p>
       <div class="bar"><i style="width:70%"></i></div>
       <div class="scale"><span>Mais Estado</span><span>7/10 &middot; ajustada 6.2</span><span>Menos Estado</span></div>
+      
+<details class="falta"><summary>O que falta saber (2)</summary>
+  <ul data-gloss><li>Não lista quais despesas seriam cortadas nem apresenta cronograma.</li><li>O corte de cerca de 1,5% do PIB (R$ 190 bi) foi dito pela equipe, mas não consta como meta no plano protocolado no TSE.</li></ul>
+</details>
+
     </div>
     
   </div>
@@ -230,17 +400,27 @@
   <div class="grid2">
     
     <div class="lula">
-      <span class="badge lula">Lula</span>
-      <p style="margin:8px 0">Implementar a reforma do consumo aprovada; manter isenção de IR até R$ 5 mil, tributação de offshores/fundos exclusivos e Imposto Seletivo.</p>
+      <span class="badge lula">Lula</span> <span class="selo s-alta" title="Quão concreta e verificável é a proposta no plano">●●● Detalhada</span>
+      <p style="margin:8px 0" data-gloss>Implementar a reforma do consumo aprovada; manter isenção de IR até R$ 5 mil, tributação de offshores/fundos exclusivos e Imposto Seletivo.</p>
       <div class="bar"><i style="width:30%"></i></div>
       <div class="scale"><span>Mais Estado</span><span>3/10 &middot; ajustada 3.0</span><span>Menos Estado</span></div>
+      
+<details class="falta"><summary>O que falta saber (1)</summary>
+  <ul data-gloss><li>A alíquota final do IVA depende de regulamentação (a estimativa de julho do Comitê Gestor do IBS, de 27,91%, não é definitiva).</li></ul>
+</details>
+
     </div>
     
     <div class="flavio">
-      <span class="badge flavio">Flávio Bolsonaro</span>
-      <p style="margin:8px 0">Revisar a reforma para reduzir a carga (IVA menor; citou 20%), cortar tributos sobre energia e combustíveis e desonerar exportações. Não diz quais tributos nem a compensação.</p>
+      <span class="badge flavio">Flávio Bolsonaro</span> <span class="selo s-baixa" title="Quão concreta e verificável é a proposta no plano">●○○ Vaga</span>
+      <p style="margin:8px 0" data-gloss>Revisar a reforma para reduzir a carga (IVA menor; citou 20%), cortar tributos sobre energia e combustíveis e desonerar exportações. Não diz quais tributos nem a compensação.</p>
       <div class="bar"><i style="width:70%"></i></div>
       <div class="scale"><span>Mais Estado</span><span>7/10 &middot; ajustada 6.2</span><span>Menos Estado</span></div>
+      
+<details class="falta"><summary>O que falta saber (3)</summary>
+  <ul data-gloss><li>Não diz quais tributos seriam reduzidos.</li><li>A alíquota de IVA de 20%, citada em evento, não aparece como compromisso no plano.</li><li>Não explica como compensaria a queda de arrecadação.</li></ul>
+</details>
+
     </div>
     
   </div>
@@ -254,17 +434,25 @@
   <div class="grid2">
     
     <div class="lula">
-      <span class="badge lula">Lula</span>
-      <p style="margin:8px 0">Estatais como instrumento de política industrial e energética; Petrobras na distribuição de combustíveis; descarta privatizar os Correios.</p>
+      <span class="badge lula">Lula</span> <span class="selo s-alta" title="Quão concreta e verificável é a proposta no plano">●●● Detalhada</span>
+      <p style="margin:8px 0" data-gloss>Estatais como instrumento de política industrial e energética; Petrobras na distribuição de combustíveis; descarta privatizar os Correios.</p>
       <div class="bar"><i style="width:10%"></i></div>
       <div class="scale"><span>Mais Estado</span><span>1/10 &middot; ajustada 1.0</span><span>Menos Estado</span></div>
+      
+<div class="note">Sem lacunas relevantes apontadas nas fontes consultadas.</div>
+
     </div>
     
     <div class="flavio">
-      <span class="badge flavio">Flávio Bolsonaro</span>
-      <p style="margin:8px 0">Retomar o Programa Nacional de Desestatização, caso a caso. Não lista empresas; analistas não esperam privatização de Petrobras ou Banco do Brasil. Caixa vira &#39;Banco da Prosperidade&#39;.</p>
+      <span class="badge flavio">Flávio Bolsonaro</span> <span class="selo s-baixa" title="Quão concreta e verificável é a proposta no plano">●○○ Vaga</span>
+      <p style="margin:8px 0" data-gloss>Retomar o Programa Nacional de Desestatização, caso a caso. Não lista empresas; analistas não esperam privatização de Petrobras ou Banco do Brasil. Caixa vira &#39;Banco da Prosperidade&#39;.</p>
       <div class="bar"><i style="width:60%"></i></div>
       <div class="scale"><span>Mais Estado</span><span>6/10 &middot; ajustada 5.6</span><span>Menos Estado</span></div>
+      
+<details class="falta"><summary>O que falta saber (2)</summary>
+  <ul data-gloss><li>Não lista quais estatais seriam privatizadas.</li><li>Prevê mudanças de gestão antes de decidir vendas, sem critérios definidos.</li></ul>
+</details>
+
     </div>
     
   </div>
@@ -278,17 +466,27 @@
   <div class="grid2">
     
     <div class="lula">
-      <span class="badge lula">Lula</span>
-      <p style="margin:8px 0">Fim da escala 6x1 (40h semanais sem redução salarial); ganho real do salário mínimo (teto de 2,5%/ano); proteção a trabalhadores de plataformas.</p>
+      <span class="badge lula">Lula</span> <span class="selo s-alta" title="Quão concreta e verificável é a proposta no plano">●●● Detalhada</span>
+      <p style="margin:8px 0" data-gloss>Fim da escala 6x1 (40h semanais sem redução salarial); ganho real do salário mínimo (teto de 2,5%/ano); proteção a trabalhadores de plataformas.</p>
       <div class="bar"><i style="width:30%"></i></div>
       <div class="scale"><span>Mais Estado</span><span>3/10 &middot; ajustada 3.0</span><span>Menos Estado</span></div>
+      
+<details class="falta"><summary>O que falta saber (1)</summary>
+  <ul data-gloss><li>O fim da escala 6x1 depende de aprovação legislativa e de regras de transição.</li></ul>
+</details>
+
     </div>
     
     <div class="flavio">
-      <span class="badge flavio">Flávio Bolsonaro</span>
-      <p style="margin:8px 0">Reduzir gradualmente encargos sobre a folha; contratos para jovens de 18-24 e maiores de 50 desempregados; jornadas flexíveis. Também passou a apoiar o fim da 6x1.</p>
+      <span class="badge flavio">Flávio Bolsonaro</span> <span class="selo s-media" title="Quão concreta e verificável é a proposta no plano">●●○ Parcial</span>
+      <p style="margin:8px 0" data-gloss>Reduzir gradualmente encargos sobre a folha; contratos para jovens de 18-24 e maiores de 50 desempregados; jornadas flexíveis. Também passou a apoiar o fim da 6x1.</p>
       <div class="bar"><i style="width:70%"></i></div>
       <div class="scale"><span>Mais Estado</span><span>7/10 &middot; ajustada 6.6</span><span>Menos Estado</span></div>
+      
+<details class="falta"><summary>O que falta saber (3)</summary>
+  <ul data-gloss><li>Não traz regra de reajuste real do salário mínimo.</li><li>Posições sobre reajuste de salários e aposentadorias seguem sem detalhamento (Folha, 14/10).</li><li>Regras dos novos modelos de contrato não são detalhadas.</li></ul>
+</details>
+
     </div>
     
   </div>
@@ -302,17 +500,27 @@
   <div class="grid2">
     
     <div class="lula">
-      <span class="badge lula">Lula</span>
-      <p style="margin:8px 0">Novo PAC (~R$ 1,9 tri previstos), mais concessões ferroviárias, portos e aeroportos regionais. Sem meta numérica de PIB.</p>
+      <span class="badge lula">Lula</span> <span class="selo s-alta" title="Quão concreta e verificável é a proposta no plano">●●● Detalhada</span>
+      <p style="margin:8px 0" data-gloss>Novo PAC (~R$ 1,9 tri previstos), mais concessões ferroviárias, portos e aeroportos regionais. Sem meta numérica de PIB.</p>
       <div class="bar"><i style="width:30%"></i></div>
       <div class="scale"><span>Mais Estado</span><span>3/10 &middot; ajustada 3.0</span><span>Menos Estado</span></div>
+      
+<details class="falta"><summary>O que falta saber (1)</summary>
+  <ul data-gloss><li>Os valores do Novo PAC são investimentos previstos, não necessariamente já executados.</li></ul>
+</details>
+
     </div>
     
     <div class="flavio">
-      <span class="badge flavio">Flávio Bolsonaro</span>
-      <p style="margin:8px 0">R$ 900 bi em 4 anos via PPPs, concessões e fundo de ativos da União; meta de PIB de 4% ao ano por uma década. Fontes de recurso não especificadas.</p>
+      <span class="badge flavio">Flávio Bolsonaro</span> <span class="selo s-baixa" title="Quão concreta e verificável é a proposta no plano">●○○ Vaga</span>
+      <p style="margin:8px 0" data-gloss>R$ 900 bi em 4 anos via PPPs, concessões e fundo de ativos da União; meta de PIB de 4% ao ano por uma década. Fontes de recurso não especificadas.</p>
       <div class="bar"><i style="width:60%"></i></div>
       <div class="scale"><span>Mais Estado</span><span>6/10 &middot; ajustada 5.6</span><span>Menos Estado</span></div>
+      
+<details class="falta"><summary>O que falta saber (3)</summary>
+  <ul data-gloss><li>Não diz quais imóveis e ativos da União entrariam no fundo.</li><li>Não define como o fundo seria administrado nem as condições financeiras das operações.</li><li>As fontes dos R$ 900 bi não são detalhadas.</li></ul>
+</details>
+
     </div>
     
   </div>
@@ -326,17 +534,25 @@
   <div class="grid2">
     
     <div class="lula">
-      <span class="badge lula">Lula</span>
-      <p style="margin:8px 0">Petrobras central: mais exploração, refino e volta à distribuição de combustíveis.</p>
+      <span class="badge lula">Lula</span> <span class="selo s-alta" title="Quão concreta e verificável é a proposta no plano">●●● Detalhada</span>
+      <p style="margin:8px 0" data-gloss>Petrobras central: mais exploração, refino e volta à distribuição de combustíveis.</p>
       <div class="bar"><i style="width:20%"></i></div>
       <div class="scale"><span>Mais Estado</span><span>2/10 &middot; ajustada 2.0</span><span>Menos Estado</span></div>
+      
+<div class="note">Sem lacunas relevantes apontadas nas fontes consultadas.</div>
+
     </div>
     
     <div class="flavio">
-      <span class="badge flavio">Flávio Bolsonaro</span>
-      <p style="margin:8px 0">Expandir petróleo e gás, liberar fracking e reduzir impostos sobre energia e combustíveis.</p>
+      <span class="badge flavio">Flávio Bolsonaro</span> <span class="selo s-media" title="Quão concreta e verificável é a proposta no plano">●●○ Parcial</span>
+      <p style="margin:8px 0" data-gloss>Expandir petróleo e gás, liberar fracking e reduzir impostos sobre energia e combustíveis.</p>
       <div class="bar"><i style="width:60%"></i></div>
       <div class="scale"><span>Mais Estado</span><span>6/10 &middot; ajustada 5.8</span><span>Menos Estado</span></div>
+      
+<details class="falta"><summary>O que falta saber (1)</summary>
+  <ul data-gloss><li>A redução de impostos sobre energia e combustíveis não diz quais tributos nem como seria compensada.</li></ul>
+</details>
+
     </div>
     
   </div>
@@ -350,17 +566,25 @@
   <div class="grid2">
     
     <div class="lula">
-      <span class="badge lula">Lula</span>
-      <p style="margin:8px 0">Nova Indústria Brasil, BNDES, fundos garantidores e programas como Pronampe e Acredita (&gt; R$ 130 bi).</p>
+      <span class="badge lula">Lula</span> <span class="selo s-alta" title="Quão concreta e verificável é a proposta no plano">●●● Detalhada</span>
+      <p style="margin:8px 0" data-gloss>Nova Indústria Brasil, BNDES, fundos garantidores e programas como Pronampe e Acredita (&gt; R$ 130 bi).</p>
       <div class="bar"><i style="width:20%"></i></div>
       <div class="scale"><span>Mais Estado</span><span>2/10 &middot; ajustada 2.0</span><span>Menos Estado</span></div>
+      
+<div class="note">Sem lacunas relevantes apontadas nas fontes consultadas.</div>
+
     </div>
     
     <div class="flavio">
-      <span class="badge flavio">Flávio Bolsonaro</span>
-      <p style="margin:8px 0">Refinanciamento de dívidas e crédito via Caixa; foco em desregulamentação e menor custo de produção.</p>
+      <span class="badge flavio">Flávio Bolsonaro</span> <span class="selo s-baixa" title="Quão concreta e verificável é a proposta no plano">●○○ Vaga</span>
+      <p style="margin:8px 0" data-gloss>Refinanciamento de dívidas e crédito via Caixa; foco em desregulamentação e menor custo de produção.</p>
       <div class="bar"><i style="width:50%"></i></div>
       <div class="scale"><span>Mais Estado</span><span>5/10 &middot; ajustada 5.0</span><span>Menos Estado</span></div>
+      
+<details class="falta"><summary>O que falta saber (1)</summary>
+  <ul data-gloss><li>A proposta de refinanciamento de dívidas pela Caixa surgiu no 2º turno, fora do plano original.</li></ul>
+</details>
+
     </div>
     
   </div>
@@ -374,17 +598,23 @@
   <div class="grid2">
     
     <div class="lula">
-      <span class="badge lula">Lula</span>
-      <p style="margin:8px 0">Ampliar o Plano Safra, diversificar fontes de financiamento e simplificar o crédito.</p>
+      <span class="badge lula">Lula</span> <span class="selo s-media" title="Quão concreta e verificável é a proposta no plano">●●○ Parcial</span>
+      <p style="margin:8px 0" data-gloss>Ampliar o Plano Safra, diversificar fontes de financiamento e simplificar o crédito.</p>
       <div class="bar"><i style="width:40%"></i></div>
       <div class="scale"><span>Mais Estado</span><span>4/10 &middot; ajustada 4.2</span><span>Menos Estado</span></div>
+      
+<div class="note">Sem lacunas relevantes apontadas nas fontes consultadas.</div>
+
     </div>
     
     <div class="flavio">
-      <span class="badge flavio">Flávio Bolsonaro</span>
-      <p style="margin:8px 0">Ampliar o seguro rural, reorganizar dívidas e aumentar a capacidade de armazenagem.</p>
+      <span class="badge flavio">Flávio Bolsonaro</span> <span class="selo s-media" title="Quão concreta e verificável é a proposta no plano">●●○ Parcial</span>
+      <p style="margin:8px 0" data-gloss>Ampliar o seguro rural, reorganizar dívidas e aumentar a capacidade de armazenagem.</p>
       <div class="bar"><i style="width:50%"></i></div>
       <div class="scale"><span>Mais Estado</span><span>5/10 &middot; ajustada 5.0</span><span>Menos Estado</span></div>
+      
+<div class="note">Sem lacunas relevantes apontadas nas fontes consultadas.</div>
+
     </div>
     
   </div>
@@ -398,17 +628,23 @@
   <div class="grid2">
     
     <div class="lula">
-      <span class="badge lula">Lula</span>
-      <p style="margin:8px 0">Manter e ampliar Bolsa Família e programas de proteção social; Novo PAC habitação.</p>
+      <span class="badge lula">Lula</span> <span class="selo s-alta" title="Quão concreta e verificável é a proposta no plano">●●● Detalhada</span>
+      <p style="margin:8px 0" data-gloss>Manter e ampliar Bolsa Família e programas de proteção social; Novo PAC habitação.</p>
       <div class="bar"><i style="width:20%"></i></div>
       <div class="scale"><span>Mais Estado</span><span>2/10 &middot; ajustada 2.0</span><span>Menos Estado</span></div>
+      
+<div class="note">Sem lacunas relevantes apontadas nas fontes consultadas.</div>
+
     </div>
     
     <div class="flavio">
-      <span class="badge flavio">Flávio Bolsonaro</span>
-      <p style="margin:8px 0">Retomar o Casa Verde e Amarela (meta de 2,5 milhões de moradias).</p>
+      <span class="badge flavio">Flávio Bolsonaro</span> <span class="selo s-media" title="Quão concreta e verificável é a proposta no plano">●●○ Parcial</span>
+      <p style="margin:8px 0" data-gloss>Retomar o Casa Verde e Amarela (meta de 2,5 milhões de moradias).</p>
       <div class="bar"><i style="width:40%"></i></div>
       <div class="scale"><span>Mais Estado</span><span>4/10 &middot; ajustada 4.2</span><span>Menos Estado</span></div>
+      
+<div class="note">Sem lacunas relevantes apontadas nas fontes consultadas.</div>
+
     </div>
     
   </div>
@@ -416,7 +652,7 @@
 
 
 
-<h2>Baixe e leia os planos oficiais</h2>
+<h2 id="planos">Baixe e leia os planos oficiais</h2>
 <div class="card">
   
   <div class="doc">
@@ -435,12 +671,83 @@
 </div>
 
 
+<h2 id="glossario">Glossário em português claro</h2>
+<div class="card">
+  <p class="note" style="margin-top:0">Termos sublinhados com pontinhos nos textos mostram o significado ao passar o mouse ou tocar.</p>
+  <input type="search" id="gl-busca" placeholder="Buscar termo (ex.: IVA, PPP, arcabouço)" aria-label="Buscar no glossário">
+  <dl class="gl-lista" id="gl-lista">
+    
+    <div class="gl" data-k="arcabouço fiscal  conjunto de regras que limita o crescimento dos gastos do governo federal em relação à arrecadação e define metas para as contas públicas."><dt>arcabouço fiscal</dt><dd>Conjunto de regras que limita o crescimento dos gastos do governo federal em relação à arrecadação e define metas para as contas públicas.</dd></div>
+    
+    <div class="gl" data-k="bndes  banco público de fomento que financia investimentos de longo prazo de empresas e governos."><dt>BNDES</dt><dd>Banco público de fomento que financia investimentos de longo prazo de empresas e governos.</dd></div>
+    
+    <div class="gl" data-k="cargos comissionados  cargos de confiança preenchidos por indicação, sem concurso público."><dt>cargos comissionados</dt><dd>Cargos de confiança preenchidos por indicação, sem concurso público.</dd></div>
+    
+    <div class="gl" data-k="casa verde e amarela  programa de habitação popular do governo bolsonaro, substituído em 2023 pelo minha casa, minha vida."><dt>Casa Verde e Amarela</dt><dd>Programa de habitação popular do governo Bolsonaro, substituído em 2023 pelo Minha Casa, Minha Vida.</dd></div>
+    
+    <div class="gl" data-k="concessão concessões o governo repassa a uma empresa, por um período, a exploração de uma rodovia, ferrovia, porto ou aeroporto, e a empresa investe e cobra pelo uso."><dt>concessão</dt><dd>O governo repassa a uma empresa, por um período, a exploração de uma rodovia, ferrovia, porto ou aeroporto, e a empresa investe e cobra pelo uso.</dd></div>
+    
+    <div class="gl" data-k="dívida bruta  total que o governo deve, medido em proporção do pib. em agosto de 2026 estava em 82,9% do pib, segundo dados do banco central reunidos pelo investnews."><dt>dívida bruta</dt><dd>Total que o governo deve, medido em proporção do PIB. Em agosto de 2026 estava em 82,9% do PIB, segundo dados do Banco Central reunidos pelo InvestNews.</dd></div>
+    
+    <div class="gl" data-k="encargos sobre a folha encargos folha de pagamento desoneração da folha tributos e contribuições que a empresa paga além do salário ao contratar. reduzi-los baixa o custo de contratar, mas também reduz a arrecadação."><dt>encargos sobre a folha</dt><dd>Tributos e contribuições que a empresa paga além do salário ao contratar. Reduzi-los baixa o custo de contratar, mas também reduz a arrecadação.</dd></div>
+    
+    <div class="gl" data-k="escala 6x1 6x1 jornada em que a pessoa trabalha seis dias e folga um."><dt>escala 6x1</dt><dd>Jornada em que a pessoa trabalha seis dias e folga um.</dd></div>
+    
+    <div class="gl" data-k="estatais estatal empresas controladas pelo governo, como petrobras, caixa e correios."><dt>estatais</dt><dd>Empresas controladas pelo governo, como Petrobras, Caixa e Correios.</dd></div>
+    
+    <div class="gl" data-k="fracking  técnica de extração de petróleo e gás por fratura hidráulica de rochas. é debatida por seus impactos ambientais."><dt>fracking</dt><dd>Técnica de extração de petróleo e gás por fratura hidráulica de rochas. É debatida por seus impactos ambientais.</dd></div>
+    
+    <div class="gl" data-k="fundos exclusivos  fundos de investimento criados para um único cotista ou poucos, geralmente pessoas de alta renda."><dt>fundos exclusivos</dt><dd>Fundos de investimento criados para um único cotista ou poucos, geralmente pessoas de alta renda.</dd></div>
+    
+    <div class="gl" data-k="ganho real acima da inflação aumento acima da inflação. quando o salário mínimo tem ganho real, o poder de compra cresce, não só o valor nominal."><dt>ganho real</dt><dd>Aumento acima da inflação. Quando o salário mínimo tem ganho real, o poder de compra cresce, não só o valor nominal.</dd></div>
+    
+    <div class="gl" data-k="imposto seletivo  imposto extra sobre produtos considerados prejudiciais à saúde, o que pode torná-los mais caros."><dt>Imposto Seletivo</dt><dd>Imposto extra sobre produtos considerados prejudiciais à saúde, o que pode torná-los mais caros.</dd></div>
+    
+    <div class="gl" data-k="iva imposto sobre valor agregado imposto cobrado sobre o consumo de bens e serviços. a reforma tributária cria um iva que substitui vários tributos atuais. a alíquota final ainda não está definida."><dt>IVA</dt><dd>Imposto cobrado sobre o consumo de bens e serviços. A reforma tributária cria um IVA que substitui vários tributos atuais. A alíquota final ainda não está definida.</dd></div>
+    
+    <div class="gl" data-k="mei  microempreendedor individual: trabalhador por conta própria com cnpj e regras simplificadas."><dt>MEI</dt><dd>Microempreendedor individual: trabalhador por conta própria com CNPJ e regras simplificadas.</dd></div>
+    
+    <div class="gl" data-k="nova indústria brasil  política industrial do governo lula, com financiamento e incentivos a setores considerados estratégicos."><dt>Nova Indústria Brasil</dt><dd>Política industrial do governo Lula, com financiamento e incentivos a setores considerados estratégicos.</dd></div>
+    
+    <div class="gl" data-k="novo pac  programa do governo federal de investimentos em obras de infraestrutura, habitação, energia e outras áreas."><dt>Novo PAC</dt><dd>Programa do governo federal de investimentos em obras de infraestrutura, habitação, energia e outras áreas.</dd></div>
+    
+    <div class="gl" data-k="offshore offshores investimento ou empresa mantidos no exterior, muitas vezes por pessoas de renda alta."><dt>offshore</dt><dd>Investimento ou empresa mantidos no exterior, muitas vezes por pessoas de renda alta.</dd></div>
+    
+    <div class="gl" data-k="penduricalhos  pagamentos extras que elevam a remuneração de servidores acima do salário-base."><dt>penduricalhos</dt><dd>Pagamentos extras que elevam a remuneração de servidores acima do salário-base.</dd></div>
+    
+    <div class="gl" data-k="pib  soma de tudo o que o país produz em um ano. é a medida mais usada do tamanho da economia."><dt>PIB</dt><dd>Soma de tudo o que o país produz em um ano. É a medida mais usada do tamanho da economia.</dd></div>
+    
+    <div class="gl" data-k="plano safra  conjunto de linhas de crédito rural anunciado pelo governo a cada safra, com juros e condições definidos para o produtor."><dt>Plano Safra</dt><dd>Conjunto de linhas de crédito rural anunciado pelo governo a cada safra, com juros e condições definidos para o produtor.</dd></div>
+    
+    <div class="gl" data-k="ppp ppps parceria público-privada parcerias público-privadas parceria público-privada: contrato de longo prazo em que uma empresa privada constrói ou opera um serviço público e é paga pelo governo, por tarifas ou pelos dois."><dt>PPP</dt><dd>Parceria público-privada: contrato de longo prazo em que uma empresa privada constrói ou opera um serviço público e é paga pelo governo, por tarifas ou pelos dois.</dd></div>
+    
+    <div class="gl" data-k="privatização privatizações privatizadas privatizar desestatização venda ou redução da participação do governo em uma empresa estatal. no plano de flávio, o programa se chama programa nacional de desestatização (pnd)."><dt>privatização</dt><dd>Venda ou redução da participação do governo em uma empresa estatal. No plano de Flávio, o programa se chama Programa Nacional de Desestatização (PND).</dd></div>
+    
+    <div class="gl" data-k="pronampe  programa de crédito para micro e pequenas empresas, com garantia do governo."><dt>Pronampe</dt><dd>Programa de crédito para micro e pequenas empresas, com garantia do governo.</dd></div>
+    
+    <div class="gl" data-k="reforma administrativa  mudanças nas regras e na estrutura do serviço público: cargos, carreiras, remuneração e número de ministérios."><dt>reforma administrativa</dt><dd>Mudanças nas regras e na estrutura do serviço público: cargos, carreiras, remuneração e número de ministérios.</dd></div>
+    
+    <div class="gl" data-k="reforma tributária  mudança aprovada pelo congresso na forma de cobrar os impostos sobre o consumo. ainda depende de regulamentação para valer por completo."><dt>reforma tributária</dt><dd>Mudança aprovada pelo Congresso na forma de cobrar os impostos sobre o consumo. Ainda depende de regulamentação para valer por completo.</dd></div>
+    
+    <div class="gl" data-k="resultado primário superávit déficit déficit primário superávit primário diferença entre o que o governo arrecada e o que gasta, sem contar os juros da dívida. se sobra dinheiro, é superávit; se falta, é déficit."><dt>resultado primário</dt><dd>Diferença entre o que o governo arrecada e o que gasta, sem contar os juros da dívida. Se sobra dinheiro, é superávit; se falta, é déficit.</dd></div>
+    
+    <div class="gl" data-k="securitização  transformar valores que o governo tem a receber no futuro em títulos vendidos hoje, para antecipar dinheiro."><dt>securitização</dt><dd>Transformar valores que o governo tem a receber no futuro em títulos vendidos hoje, para antecipar dinheiro.</dd></div>
+    
+    <div class="gl" data-k="teto da dívida  limite para o tamanho da dívida pública. no plano de flávio bolsonaro o valor do limite não é detalhado."><dt>teto da dívida</dt><dd>Limite para o tamanho da dívida pública. No plano de Flávio Bolsonaro o valor do limite não é detalhado.</dd></div>
+    
+  </dl>
+  <p class="note" id="gl-vazio" hidden>Nenhum termo encontrado.</p>
+</div>
+
+
 <h2 id="metodologia">Como chegamos a essas notas</h2>
 <div class="card">
   <ul>
     <li><b>Escala "liberal" (0 a 10):</b> 0 = muito Estado (estatais, subsídio direto, mais controle); 10 = pouco Estado (corte de gasto, privatização, menos imposto, desregulação).</li>
-    <li><b>Detalhamento:</b> alta (fator 1.0), média (0.8) ou baixa (0.6). A nota <b>ajustada</b> aproxima a nota do neutro (5) quando a proposta é vaga, para separar quem <i>promete</i> de quem <i>especifica</i>.</li>
-    <li><b>Julgamento editorial:</b> as notas são uma régua simples e aberta, não uma verdade científica. Pessoas diferentes podem pesar os temas de outra forma. Edite <code>data.py</code> e o site recalcula.</li>
+    <li><b>Detalhamento e selo:</b> <span class="selo s-alta">Detalhada</span> (fator 1.0), <span class="selo s-media">Parcial</span> (0.8) ou <span class="selo s-baixa">Vaga</span> (0.6). A nota <b>ajustada</b> aproxima a nota do neutro (5) quando a proposta é vaga, para separar quem <i>promete</i> de quem <i>especifica</i>. O quadro "O que falta saber" lista as lacunas apontadas pelo plano e pela imprensa.</li>
+    <li><b>Simulador:</b> cruza o seu perfil com propostas que constam nos planos ou foram reportadas pela imprensa. Não estima valores em reais nem prevê resultados.</li>
+    <li><b>Quiz:</b> as opções aparecem embaralhadas e sem o nome do candidato até o resultado. Mede afinidade só com propostas econômicas, sem incluir segurança, saúde, educação ou costumes, e não é recomendação de voto.</li>
+    <li><b>Julgamento editorial:</b> as notas são uma régua simples e aberta, não uma verdade científica. Pessoas diferentes podem pesar os temas de outra forma.</li>
     <li><b>Limites:</b> usamos os planos registrados no TSE e a imprensa. Declarações de campanha podem mudar posições (ex.: Flávio passou a apoiar o fim da 6x1). Ambos dependem do Congresso.</li>
   </ul>
   <p class="note">Fontes:
@@ -450,15 +757,163 @@
 
 </div>
 
+<div id="tip" role="tooltip" hidden></div>
+
 <script>
-  const tabs = document.getElementById('tabs');
-  tabs.addEventListener('click', e => {
-    const b = e.target.closest('button'); if (!b) return;
-    tabs.querySelectorAll('button').forEach(x => x.setAttribute('aria-pressed', x === b));
-    document.querySelectorAll('.sector').forEach(el => {
-      el.hidden = b.dataset.id !== 'todos' && el.dataset.setor !== b.dataset.id;
+const DATA = {"glossario": [{"alias": [], "def": "Conjunto de regras que limita o crescimento dos gastos do governo federal em rela\u00e7\u00e3o \u00e0 arrecada\u00e7\u00e3o e define metas para as contas p\u00fablicas.", "termo": "arcabou\u00e7o fiscal"}, {"alias": ["super\u00e1vit", "d\u00e9ficit", "d\u00e9ficit prim\u00e1rio", "super\u00e1vit prim\u00e1rio"], "def": "Diferen\u00e7a entre o que o governo arrecada e o que gasta, sem contar os juros da d\u00edvida. Se sobra dinheiro, \u00e9 super\u00e1vit; se falta, \u00e9 d\u00e9ficit.", "termo": "resultado prim\u00e1rio"}, {"alias": [], "def": "Total que o governo deve, medido em propor\u00e7\u00e3o do PIB. Em agosto de 2026 estava em 82,9% do PIB, segundo dados do Banco Central reunidos pelo InvestNews.", "termo": "d\u00edvida bruta"}, {"alias": [], "def": "Limite para o tamanho da d\u00edvida p\u00fablica. No plano de Fl\u00e1vio Bolsonaro o valor do limite n\u00e3o \u00e9 detalhado.", "termo": "teto da d\u00edvida"}, {"alias": [], "def": "Soma de tudo o que o pa\u00eds produz em um ano. \u00c9 a medida mais usada do tamanho da economia.", "termo": "PIB"}, {"alias": ["imposto sobre valor agregado"], "def": "Imposto cobrado sobre o consumo de bens e servi\u00e7os. A reforma tribut\u00e1ria cria um IVA que substitui v\u00e1rios tributos atuais. A al\u00edquota final ainda n\u00e3o est\u00e1 definida.", "termo": "IVA"}, {"alias": [], "def": "Mudan\u00e7a aprovada pelo Congresso na forma de cobrar os impostos sobre o consumo. Ainda depende de regulamenta\u00e7\u00e3o para valer por completo.", "termo": "reforma tribut\u00e1ria"}, {"alias": [], "def": "Imposto extra sobre produtos considerados prejudiciais \u00e0 sa\u00fade, o que pode torn\u00e1-los mais caros.", "termo": "Imposto Seletivo"}, {"alias": ["offshores"], "def": "Investimento ou empresa mantidos no exterior, muitas vezes por pessoas de renda alta.", "termo": "offshore"}, {"alias": [], "def": "Fundos de investimento criados para um \u00fanico cotista ou poucos, geralmente pessoas de alta renda.", "termo": "fundos exclusivos"}, {"alias": ["encargos", "folha de pagamento", "desonera\u00e7\u00e3o da folha"], "def": "Tributos e contribui\u00e7\u00f5es que a empresa paga al\u00e9m do sal\u00e1rio ao contratar. Reduzi-los baixa o custo de contratar, mas tamb\u00e9m reduz a arrecada\u00e7\u00e3o.", "termo": "encargos sobre a folha"}, {"alias": ["6x1"], "def": "Jornada em que a pessoa trabalha seis dias e folga um.", "termo": "escala 6x1"}, {"alias": ["PPPs", "parceria p\u00fablico-privada", "parcerias p\u00fablico-privadas"], "def": "Parceria p\u00fablico-privada: contrato de longo prazo em que uma empresa privada constr\u00f3i ou opera um servi\u00e7o p\u00fablico e \u00e9 paga pelo governo, por tarifas ou pelos dois.", "termo": "PPP"}, {"alias": ["concess\u00f5es"], "def": "O governo repassa a uma empresa, por um per\u00edodo, a explora\u00e7\u00e3o de uma rodovia, ferrovia, porto ou aeroporto, e a empresa investe e cobra pelo uso.", "termo": "concess\u00e3o"}, {"alias": [], "def": "Transformar valores que o governo tem a receber no futuro em t\u00edtulos vendidos hoje, para antecipar dinheiro.", "termo": "securitiza\u00e7\u00e3o"}, {"alias": ["privatiza\u00e7\u00f5es", "privatizadas", "privatizar", "desestatiza\u00e7\u00e3o"], "def": "Venda ou redu\u00e7\u00e3o da participa\u00e7\u00e3o do governo em uma empresa estatal. No plano de Fl\u00e1vio, o programa se chama Programa Nacional de Desestatiza\u00e7\u00e3o (PND).", "termo": "privatiza\u00e7\u00e3o"}, {"alias": ["estatal"], "def": "Empresas controladas pelo governo, como Petrobras, Caixa e Correios.", "termo": "estatais"}, {"alias": [], "def": "Mudan\u00e7as nas regras e na estrutura do servi\u00e7o p\u00fablico: cargos, carreiras, remunera\u00e7\u00e3o e n\u00famero de minist\u00e9rios.", "termo": "reforma administrativa"}, {"alias": [], "def": "Cargos de confian\u00e7a preenchidos por indica\u00e7\u00e3o, sem concurso p\u00fablico.", "termo": "cargos comissionados"}, {"alias": [], "def": "Pagamentos extras que elevam a remunera\u00e7\u00e3o de servidores acima do sal\u00e1rio-base.", "termo": "penduricalhos"}, {"alias": [], "def": "Banco p\u00fablico de fomento que financia investimentos de longo prazo de empresas e governos.", "termo": "BNDES"}, {"alias": [], "def": "Programa de cr\u00e9dito para micro e pequenas empresas, com garantia do governo.", "termo": "Pronampe"}, {"alias": [], "def": "Programa do governo federal de investimentos em obras de infraestrutura, habita\u00e7\u00e3o, energia e outras \u00e1reas.", "termo": "Novo PAC"}, {"alias": [], "def": "Pol\u00edtica industrial do governo Lula, com financiamento e incentivos a setores considerados estrat\u00e9gicos.", "termo": "Nova Ind\u00fastria Brasil"}, {"alias": [], "def": "Conjunto de linhas de cr\u00e9dito rural anunciado pelo governo a cada safra, com juros e condi\u00e7\u00f5es definidos para o produtor.", "termo": "Plano Safra"}, {"alias": [], "def": "T\u00e9cnica de extra\u00e7\u00e3o de petr\u00f3leo e g\u00e1s por fratura hidr\u00e1ulica de rochas. \u00c9 debatida por seus impactos ambientais.", "termo": "fracking"}, {"alias": [], "def": "Programa de habita\u00e7\u00e3o popular do governo Bolsonaro, substitu\u00eddo em 2023 pelo Minha Casa, Minha Vida.", "termo": "Casa Verde e Amarela"}, {"alias": ["acima da infla\u00e7\u00e3o"], "def": "Aumento acima da infla\u00e7\u00e3o. Quando o sal\u00e1rio m\u00ednimo tem ganho real, o poder de compra cresce, n\u00e3o s\u00f3 o valor nominal.", "termo": "ganho real"}, {"alias": [], "def": "Microempreendedor individual: trabalhador por conta pr\u00f3pria com CNPJ e regras simplificadas.", "termo": "MEI"}], "nomes": {"flavio": "Fl\u00e1vio Bolsonaro", "lula": "Lula"}, "quiz": [{"opcoes": [{"cand": "lula", "texto": "Us\u00e1-las como instrumento de pol\u00edtica industrial e energ\u00e9tica, como a Petrobras ampliando refino e distribui\u00e7\u00e3o de combust\u00edveis."}, {"cand": "flavio", "texto": "Reduzir a presen\u00e7a do Estado nas empresas, avaliando caso a caso quais podem ser privatizadas."}], "pergunta": "Qual deve ser o papel das empresas estatais?", "tema": "Estatais"}, {"opcoes": [{"cand": "lula", "texto": "Manter as regras do arcabou\u00e7o fiscal e apostar no crescimento e na efici\u00eancia do gasto."}, {"cand": "flavio", "texto": "Cortar despesas: menos minist\u00e9rios, menos cargos comissionados e um teto para a d\u00edvida."}], "pergunta": "Como equilibrar as contas do governo?", "tema": "Contas p\u00fablicas"}, {"opcoes": [{"cand": "lula", "texto": "Implementar a reforma j\u00e1 aprovada e manter a isen\u00e7\u00e3o de Imposto de Renda at\u00e9 R$ 5 mil e a tributa\u00e7\u00e3o de offshores."}, {"cand": "flavio", "texto": "Revisar a reforma para reduzir a carga sobre o consumo, a energia e os combust\u00edveis."}], "pergunta": "O que fazer com a reforma tribut\u00e1ria?", "tema": "Impostos"}, {"opcoes": [{"cand": "lula", "texto": "Regras de prote\u00e7\u00e3o e jornada: fim da escala 6x1 e amparo a trabalhadores de aplicativos."}, {"cand": "flavio", "texto": "Menos custo de contrata\u00e7\u00e3o: reduzir encargos sobre a folha e ampliar contratos flex\u00edveis."}], "pergunta": "Como estimular o emprego e proteger quem trabalha?", "tema": "Emprego"}, {"opcoes": [{"cand": "lula", "texto": "O governo, com o Novo PAC, somado a concess\u00f5es de ferrovias, portos e aeroportos."}, {"cand": "flavio", "texto": "Parcerias com o setor privado (PPPs e concess\u00f5es) e um fundo com ativos da Uni\u00e3o."}], "pergunta": "Quem deve liderar os investimentos em obras?", "tema": "Infraestrutura"}, {"opcoes": [{"cand": "lula", "texto": "Fortalecer a Petrobras: mais explora\u00e7\u00e3o e refino e volta \u00e0 distribui\u00e7\u00e3o de combust\u00edveis."}, {"cand": "flavio", "texto": "Ampliar petr\u00f3leo e g\u00e1s, incluindo liberar o fracking, e reduzir impostos sobre energia e combust\u00edveis."}], "pergunta": "Qual o caminho para a energia e os combust\u00edveis?", "tema": "Energia"}, {"opcoes": [{"cand": "lula", "texto": "Pol\u00edtica industrial com bancos p\u00fablicos (BNDES), fundos garantidores e programas como o Pronampe."}, {"cand": "flavio", "texto": "Desregulamentar, baixar o custo de produzir e ampliar o cr\u00e9dito para empreendedores via Caixa."}], "pergunta": "Como apoiar empresas e ind\u00fastria?", "tema": "Cr\u00e9dito e ind\u00fastria"}, {"opcoes": [{"cand": "lula", "texto": "Manter e ampliar o Bolsa Fam\u00edlia e a prote\u00e7\u00e3o social."}, {"cand": "flavio", "texto": "Retomar o programa habitacional Casa Verde e Amarela, com meta de 2,5 milh\u00f5es de moradias."}], "pergunta": "Qual a prioridade na \u00e1rea social?", "tema": "\u00c1rea social"}, {"opcoes": [{"cand": "lula", "texto": "Valorizar os servidores e manter a negocia\u00e7\u00e3o permanente."}, {"cand": "flavio", "texto": "Fazer reforma administrativa e combater privil\u00e9gios e penduricalhos."}], "pergunta": "O que fazer com o servi\u00e7o p\u00fablico?", "tema": "Servi\u00e7o p\u00fablico"}, {"opcoes": [{"cand": "lula", "texto": "Investimento p\u00fablico, ind\u00fastria e renda, sem meta num\u00e9rica de PIB."}, {"cand": "flavio", "texto": "Meta de crescer 4% ao ano por uma d\u00e9cada, com corte de gastos e de impostos."}], "pergunta": "Qual a estrat\u00e9gia para o pa\u00eds crescer?", "tema": "Crescimento"}], "simulador": {"campos": [{"id": "renda", "opcoes": [{"t": "At\u00e9 R$ 3 mil", "v": "ate_3k"}, {"t": "De R$ 3 mil a R$ 5 mil", "v": "3k_5k"}, {"t": "De R$ 5 mil a R$ 10 mil", "v": "5k_10k"}, {"t": "Acima de R$ 10 mil", "v": "acima_10k"}], "rotulo": "Sua renda mensal"}, {"id": "vinculo", "opcoes": [{"t": "Empregado com carteira assinada (CLT)", "v": "clt"}, {"t": "Aut\u00f4nomo, MEI ou trabalhador de aplicativo", "v": "autonomo"}, {"t": "Dono de empresa ou empregador", "v": "empresario"}, {"t": "Servidor p\u00fablico", "v": "servidor"}, {"t": "Aposentado ou pensionista", "v": "aposentado"}, {"t": "Desempregado", "v": "desempregado"}, {"t": "Produtor rural", "v": "produtor"}], "rotulo": "Sua situa\u00e7\u00e3o"}, {"id": "bolsa", "opcoes": [{"t": "N\u00e3o", "v": "nao"}, {"t": "Sim", "v": "sim"}], "padrao": "nao", "rotulo": "Recebe Bolsa Fam\u00edlia?"}, {"id": "divida", "opcoes": [{"t": "N\u00e3o", "v": "nao"}, {"t": "Sim", "v": "sim"}], "padrao": "nao", "rotulo": "Est\u00e1 endividado?"}], "certeza": {"campanha": "Declara\u00e7\u00e3o de campanha", "congresso": "Depende do Congresso", "no_plano": "Est\u00e1 no plano", "sem_detalhe": "Sem detalhe ou fonte"}, "impactos": [{"cand": "lula", "certeza": "no_plano", "quando": [{"renda": ["ate_3k", "3k_5k"]}], "texto": "Mant\u00e9m a isen\u00e7\u00e3o do Imposto de Renda para quem ganha at\u00e9 R$ 5 mil por m\u00eas.", "titulo": "Imposto de Renda"}, {"cand": "lula", "certeza": "no_plano", "quando": [{"renda": ["ate_3k"]}, {"vinculo": ["aposentado"]}], "texto": "Mant\u00e9m a pol\u00edtica de reajuste do sal\u00e1rio m\u00ednimo acima da infla\u00e7\u00e3o (ganho real limitado a 2,5% ao ano). Benef\u00edcios ligados ao piso acompanham.", "titulo": "Sal\u00e1rio m\u00ednimo"}, {"cand": "lula", "certeza": "congresso", "quando": [{"vinculo": ["clt"]}], "texto": "Defende o fim da escala 6x1, com jornada de 40 horas semanais sem redu\u00e7\u00e3o de sal\u00e1rio.", "titulo": "Jornada de trabalho"}, {"cand": "lula", "certeza": "no_plano", "quando": [{"vinculo": ["autonomo"]}], "texto": "Prev\u00ea prote\u00e7\u00e3o a trabalhadores de plataformas digitais e fiscaliza\u00e7\u00e3o contra contrata\u00e7\u00f5es fraudulentas como pessoa jur\u00eddica.", "titulo": "Aplicativos e contrata\u00e7\u00e3o por PJ"}, {"cand": "lula", "certeza": "no_plano", "quando": [{"bolsa": ["sim"]}], "texto": "Promete manter, aperfei\u00e7oar e ampliar o Bolsa Fam\u00edlia e a prote\u00e7\u00e3o social.", "titulo": "Bolsa Fam\u00edlia"}, {"cand": "lula", "certeza": "no_plano", "quando": [{"vinculo": ["empresario", "autonomo"]}], "texto": "Amplia fundos garantidores e programas de cr\u00e9dito como Pronampe e Acredita, e promete aten\u00e7\u00e3o ao tratamento tribut\u00e1rio das micro e pequenas empresas.", "titulo": "Micro e pequenas empresas"}, {"cand": "lula", "certeza": "no_plano", "quando": [{"divida": ["sim"]}], "texto": "Cita al\u00edvio do comprometimento da renda com d\u00edvidas de fam\u00edlias e empresas e renegocia\u00e7\u00e3o de d\u00edvidas. Confira as condi\u00e7\u00f5es no plano oficial.", "titulo": "D\u00edvidas"}, {"cand": "lula", "certeza": "no_plano", "quando": [{"renda": ["acima_10k"]}], "texto": "Mant\u00e9m a tributa\u00e7\u00e3o de fundos exclusivos e de investimentos no exterior (offshores) criada neste governo.", "titulo": "Fundos no exterior"}, {"cand": "lula", "certeza": "no_plano", "quando": [{"vinculo": ["servidor"]}], "texto": "Prev\u00ea aprofundar a valoriza\u00e7\u00e3o dos servidores federais e manter a Mesa Nacional de Negocia\u00e7\u00e3o Permanente.", "titulo": "Servidores p\u00fablicos"}, {"cand": "lula", "certeza": "no_plano", "quando": [{"vinculo": ["produtor"]}], "texto": "Amplia os recursos do Plano Safra, diversifica fontes de financiamento e simplifica o acesso ao cr\u00e9dito.", "titulo": "Cr\u00e9dito rural"}, {"cand": "lula", "certeza": "no_plano", "quando": [{"renda": ["ate_3k", "3k_5k"]}], "texto": "Mant\u00e9m o Novo PAC, que inclui obras de habita\u00e7\u00e3o e urbaniza\u00e7\u00e3o.", "titulo": "Moradia e obras"}, {"cand": "lula", "certeza": "no_plano", "quando": null, "texto": "Implementa a reforma do consumo j\u00e1 aprovada (IVA). A al\u00edquota final ainda n\u00e3o est\u00e1 definida. Cria tamb\u00e9m o Imposto Seletivo sobre produtos prejudiciais \u00e0 sa\u00fade, que pode encarec\u00ea-los.", "titulo": "Reforma tribut\u00e1ria"}, {"cand": "lula", "certeza": "no_plano", "quando": null, "texto": "Quer a Petrobras de volta \u00e0 distribui\u00e7\u00e3o de combust\u00edveis e ampliando o refino.", "titulo": "Combust\u00edveis"}, {"cand": "flavio", "certeza": "sem_detalhe", "quando": null, "texto": "Quer revisar a reforma para reduzir a al\u00edquota do IVA e a carga sobre o consumo. Citou 20% em evento, mas o n\u00famero n\u00e3o est\u00e1 no plano.", "titulo": "Reforma tribut\u00e1ria e IVA"}, {"cand": "flavio", "certeza": "sem_detalhe", "quando": null, "texto": "Prop\u00f5e reduzir impostos sobre energia el\u00e9trica e combust\u00edveis, sem dizer quais tributos nem como compensar.", "titulo": "Energia e combust\u00edveis"}, {"cand": "flavio", "certeza": "sem_detalhe", "quando": null, "texto": "Retoma o programa de desestatiza\u00e7\u00e3o, avaliando caso a caso. N\u00e3o lista quais empresas seriam privatizadas.", "titulo": "Estatais"}, {"cand": "flavio", "certeza": "congresso", "quando": [{"vinculo": ["empresario"]}], "texto": "Reduz gradualmente os encargos sobre a folha de pagamento, o que baixaria o custo de contratar.", "titulo": "Custo de contratar"}, {"cand": "flavio", "certeza": "congresso", "quando": [{"vinculo": ["desempregado"]}], "texto": "Cria modalidades de contrato para jovens de 18 a 24 anos em busca do primeiro emprego e para maiores de 50 anos desempregados h\u00e1 12 meses ou mais.", "titulo": "Primeiro emprego e 50+"}, {"cand": "flavio", "certeza": "congresso", "quando": [{"vinculo": ["clt", "autonomo"]}], "texto": "Assinou proposta legislativa que permitiria escolher entre a CLT e um regime de remunera\u00e7\u00e3o por horas trabalhadas, com benef\u00edcios proporcionais. Tamb\u00e9m defende jornadas flex\u00edveis.", "titulo": "CLT ou pagamento por hora"}, {"cand": "flavio", "certeza": "campanha", "quando": [{"vinculo": ["clt"]}], "texto": "Passou a apoiar o fim da escala 6x1 no Senado. A posi\u00e7\u00e3o \u00e9 recente e n\u00e3o est\u00e1 no plano original.", "titulo": "Escala 6x1"}, {"cand": "flavio", "certeza": "sem_detalhe", "quando": [{"renda": ["ate_3k"]}, {"vinculo": ["aposentado"]}], "texto": "O plano n\u00e3o traz regra de reajuste real do sal\u00e1rio m\u00ednimo. Declara\u00e7\u00f5es recentes indicam apoio \u00e0 continuidade de direitos e programas sociais.", "titulo": "Sal\u00e1rio m\u00ednimo"}, {"cand": "flavio", "certeza": "sem_detalhe", "quando": [{"vinculo": ["aposentado"]}], "texto": "Segundo a imprensa, as posi\u00e7\u00f5es sobre reajuste de aposentadorias seguem sem detalhamento.", "titulo": "Aposentadorias"}, {"cand": "flavio", "certeza": "campanha", "quando": [{"bolsa": ["sim"]}], "texto": "Declara\u00e7\u00f5es recentes do candidato indicam apoio \u00e0 continuidade de programas sociais. Nas fontes consultadas n\u00e3o h\u00e1 detalhes sobre cada programa.", "titulo": "Programas sociais"}, {"cand": "flavio", "certeza": "no_plano", "quando": [{"renda": ["ate_3k", "3k_5k"]}], "texto": "Retoma o Casa Verde e Amarela, com meta de 2,5 milh\u00f5es de moradias.", "titulo": "Moradia"}, {"cand": "flavio", "certeza": "no_plano", "quando": [{"vinculo": ["produtor"]}], "texto": "Amplia o seguro rural, reorganiza d\u00edvidas do setor e aumenta a capacidade de armazenagem das safras.", "titulo": "Seguro e armazenagem rural"}, {"cand": "flavio", "certeza": "sem_detalhe", "quando": [{"vinculo": ["servidor"]}], "texto": "Prop\u00f5e reforma administrativa, corte de ao menos 10 minist\u00e9rios e de cargos comissionados e combate a privil\u00e9gios e penduricalhos. N\u00e3o detalha quais despesas seriam cortadas.", "titulo": "Servi\u00e7o p\u00fablico"}, {"cand": "flavio", "certeza": "no_plano", "quando": [{"vinculo": ["empresario", "autonomo"]}], "texto": "Quer transformar a Caixa no \"Banco da Prosperidade\", com cr\u00e9dito para empreendedores e financiamento habitacional.", "titulo": "Cr\u00e9dito para empreendedores"}, {"cand": "flavio", "certeza": "campanha", "quando": [{"divida": ["sim"]}], "texto": "Apresentou, no 2\u00ba turno, uma proposta de refinanciamento de d\u00edvidas pela Caixa.", "titulo": "Refinanciamento de d\u00edvidas"}]}};
+const NOMES = DATA.nomes;
+const $ = id => document.getElementById(id);
+const norm = s => s.toLowerCase();
+
+/* ---------- Abas por setor ---------- */
+const tabs = $('tabs');
+tabs.addEventListener('click', e => {
+  const b = e.target.closest('button'); if (!b) return;
+  tabs.querySelectorAll('button').forEach(x => x.setAttribute('aria-pressed', x === b));
+  document.querySelectorAll('.sector').forEach(el => {
+    el.hidden = b.dataset.id !== 'todos' && el.dataset.setor !== b.dataset.id;
+  });
+});
+
+/* ---------- Glossário: dicas nos textos ---------- */
+const MAPA = {};
+DATA.glossario.forEach(g => [g.termo, ...(g.alias || [])].forEach(a => { MAPA[norm(a)] = g; }));
+const ALT = Object.keys(MAPA).sort((a, b) => b.length - a.length)
+  .map(a => a.replace(/[.*+?^$()|[\]\\]/g, '\\$&')).join('|');
+const RE_G = new RegExp('(^|[^\\p{L}\\d])(' + ALT + ')(?![\\p{L}\\d])', 'giu');
+
+function glossar(root) {
+  root.querySelectorAll('[data-gloss]').forEach(el => {
+    if (el.dataset.g) return;
+    el.dataset.g = '1';
+    const usados = new Set();
+    const w = document.createTreeWalker(el, NodeFilter.SHOW_TEXT);
+    const nos = []; while (w.nextNode()) nos.push(w.currentNode);
+    nos.forEach(n => {
+      if (n.parentElement.closest('.termo,summary,button,a,select,label')) return;
+      const t = n.nodeValue; RE_G.lastIndex = 0;
+      let m, ult = 0, achou = false; const f = document.createDocumentFragment();
+      while ((m = RE_G.exec(t))) {
+        const g = MAPA[norm(m[2])];
+        if (!g || usados.has(g.termo)) continue;
+        usados.add(g.termo); achou = true;
+        const ini = m.index + m[1].length;
+        f.append(t.slice(ult, ini));
+        const s = document.createElement('span');
+        s.className = 'termo'; s.tabIndex = 0; s.dataset.t = g.termo; s.textContent = m[2];
+        f.append(s); ult = ini + m[2].length;
+      }
+      if (achou) { f.append(t.slice(ult)); n.replaceWith(f); }
     });
   });
+}
+
+const tip = $('tip');
+function mostrar(el) {
+  const g = MAPA[norm(el.dataset.t)]; if (!g) return;
+  tip.textContent = '';
+  const b = document.createElement('b'); b.textContent = g.termo;
+  tip.append(b, ' — ' + g.def);
+  tip.hidden = false;
+  const r = el.getBoundingClientRect();
+  const x = Math.min(Math.max(8, r.left), innerWidth - tip.offsetWidth - 8);
+  let y = r.top - tip.offsetHeight - 8; if (y < 8) y = r.bottom + 8;
+  tip.style.left = x + 'px'; tip.style.top = y + 'px';
+}
+document.addEventListener('mouseover', e => { const t = e.target.closest('.termo'); if (t) mostrar(t); });
+document.addEventListener('mouseout', e => { if (e.target.closest('.termo')) tip.hidden = true; });
+document.addEventListener('focusin', e => { const t = e.target.closest('.termo'); if (t) mostrar(t); });
+document.addEventListener('focusout', e => { if (e.target.closest('.termo')) tip.hidden = true; });
+document.addEventListener('click', e => { const t = e.target.closest('.termo'); if (t) mostrar(t); else tip.hidden = true; });
+addEventListener('scroll', () => { tip.hidden = true; }, { passive: true });
+
+/* busca no glossário */
+$('gl-busca').addEventListener('input', e => {
+  const q = norm(e.target.value.trim()); let n = 0;
+  document.querySelectorAll('#gl-lista .gl').forEach(el => {
+    const ok = !q || el.dataset.k.includes(q); el.hidden = !ok; if (ok) n++;
+  });
+  $('gl-vazio').hidden = n > 0;
+});
+
+/* ---------- Simulador ---------- */
+const SIM = DATA.simulador;
+function bate(i, p) {
+  if (!i.quando) return true;
+  return i.quando.some(c => Object.entries(c).every(([k, v]) => v.includes(p[k])));
+}
+function simular() {
+  const p = { renda: $('s-renda').value, vinculo: $('s-vinculo').value, bolsa: $('s-bolsa').value, divida: $('s-divida').value };
+  const out = $('s-out');
+  if (!p.renda || !p.vinculo) {
+    out.innerHTML = '<p class="note">Escolha sua renda e sua situação para ver as propostas que tocam o seu perfil.</p>';
+    return;
+  }
+  let html = '<div class="grid2">';
+  ['lula', 'flavio'].forEach(c => {
+    const lista = SIM.impactos.filter(i => i.cand === c && bate(i, p));
+    html += '<div class="' + c + '"><span class="badge ' + c + '">' + NOMES[c] + '</span>' +
+      (lista.length ? lista.map(i =>
+        '<div class="imp" data-gloss><b>' + i.titulo + '</b><p>' + i.texto + '</p>' +
+        '<span class="pill p-' + i.certeza + '">' + SIM.certeza[i.certeza] + '</span></div>').join('')
+       : '<p class="note">Nenhuma proposta específica para este perfil nas fontes consultadas.</p>') +
+      '</div>';
+  });
+  out.innerHTML = html + '</div>';
+  glossar(out);
+}
+['s-renda', 's-vinculo', 's-bolsa', 's-divida'].forEach(id => $(id).addEventListener('change', simular));
+simular();
+
+/* ---------- Quiz ---------- */
+const QZ = DATA.quiz;
+let qi = 0, resp = [], ordem = [];
+function embaralhar() { ordem = QZ.map(() => Math.random() < 0.5 ? [0, 1] : [1, 0]); }
+function quiz() {
+  const el = $('quiz');
+  if (qi >= QZ.length) return resultado(el);
+  const q = QZ[qi], [a, b] = ordem[qi];
+  el.innerHTML =
+    '<div class="note">Pergunta ' + (qi + 1) + ' de ' + QZ.length + ' &middot; ' + q.tema + '</div>' +
+    '<div class="bar"><i style="width:' + (qi / QZ.length * 100) + '%;background:var(--ink)"></i></div>' +
+    '<h3 class="qp">' + q.pergunta + '</h3>' +
+    [a, b].map(k => '<div class="opt"><p data-gloss>' + q.opcoes[k].texto + '</p>' +
+      '<button class="btn" data-k="' + k + '">Escolho esta</button></div>').join('') +
+    '<button class="skip" data-k="-1">Pular esta pergunta</button>';
+  glossar(el);
+}
+function resultado(el) {
+  const ok = resp.filter(Boolean), n = ok.length, c = { lula: 0, flavio: 0 };
+  ok.forEach(x => c[x]++);
+  if (!n) {
+    el.innerHTML = '<p>Você pulou todas as perguntas.</p><button class="btn" data-reiniciar>Refazer o quiz</button>';
+    return;
+  }
+  const linhas = QZ.map((q, i) => {
+    const x = resp[i];
+    if (!x) return '<tr><td>' + q.tema + '</td><td class="note">Pulou</td><td></td></tr>';
+    const o = q.opcoes.find(o => o.cand === x);
+    return '<tr><td><b>' + q.tema + '</b></td><td>' + o.texto + '</td><td><span class="badge ' + x + '">' + NOMES[x] + '</span></td></tr>';
+  }).join('');
+  el.innerHTML =
+    '<h3 style="margin-top:0">Seu resultado</h3>' +
+    ['lula', 'flavio'].map(k =>
+      '<div class="res-row ' + k + '"><span class="badge ' + k + '">' + NOMES[k] + '</span> ' +
+      '<b>' + Math.round(c[k] / n * 100) + '%</b> <span class="note">(' + c[k] + ' de ' + n + ' respostas)</span>' +
+      '<div class="bar"><i style="width:' + (c[k] / n * 100) + '%"></i></div></div>').join('') +
+    '<p class="note">Afinidade apenas com propostas econômicas. Não é recomendação de voto e não considera segurança, saúde, educação nem costumes.</p>' +
+    '<div class="tablewrap"><table><thead><tr><th>Tema</th><th>Sua escolha</th><th>Posição de</th></tr></thead><tbody>' + linhas + '</tbody></table></div>' +
+    '<p><button class="btn" data-reiniciar>Refazer o quiz</button></p>';
+}
+$('quiz').addEventListener('click', e => {
+  const b = e.target.closest('button[data-k]');
+  if (b) { const k = +b.dataset.k; resp[qi] = k < 0 ? null : QZ[qi].opcoes[k].cand; qi++; quiz(); return; }
+  if (e.target.closest('[data-reiniciar]')) { qi = 0; resp = []; embaralhar(); quiz(); }
+});
+embaralhar(); quiz();
+
+/* ---------- Dicas do glossário nos textos fixos ---------- */
+glossar(document);
 </script>
 </body>
 </html>

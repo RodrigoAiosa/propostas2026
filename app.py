@@ -1,8 +1,19 @@
 from flask import Flask, jsonify, render_template
 
+from conteudo import GLOSSARIO, QUIZ, SIMULADOR
 from data import CANDIDATOS, DOCUMENTOS, FATOR_DETALHAMENTO, FONTES, calcular
 
 app = Flask(__name__)
+
+
+def _dados_js():
+    """Dados entregues ao JavaScript (simulador, quiz e glossário)."""
+    return {
+        "nomes": {k: v["nome"] for k, v in CANDIDATOS.items()},
+        "simulador": SIMULADOR,
+        "quiz": QUIZ,
+        "glossario": GLOSSARIO,
+    }
 
 
 @app.route("/")
@@ -14,6 +25,9 @@ def index():
         documentos=DOCUMENTOS,
         fontes=FONTES,
         fatores=FATOR_DETALHAMENTO,
+        sim=SIMULADOR,
+        glossario=GLOSSARIO,
+        dados=_dados_js(),
     )
 
 

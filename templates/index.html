@@ -4,17 +4,21 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Lula x Flávio: propostas econômicas em linguagem simples</title>
-<meta name="description" content="Compare as propostas econômicas de Lula e Flávio Bolsonaro, baixe os planos e veja quem propõe menos Estado.">
+<meta name="description" content="Compare as propostas econômicas de Lula e Flávio Bolsonaro, simule o efeito no seu bolso, faça o quiz e veja quem propõe menos Estado.">
 <style>
   :root{--bg:#f7f7f5;--card:#fff;--ink:#1b1b1b;--mut:#666;--line:#e3e3df;--lula:#c0392b;--flavio:#1f5fbf}
   @media(prefers-color-scheme:dark){:root{--bg:#141414;--card:#1e1e1e;--ink:#eee;--mut:#9a9a9a;--line:#333}}
   *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
   body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
   .wrap{max-width:980px;margin:0 auto;padding:0 16px 64px}
   header{padding:32px 0 8px}
   h1{font-size:1.7rem;margin:0 0 6px;line-height:1.2}
-  h2{font-size:1.25rem;margin:36px 0 12px}
+  h2{font-size:1.25rem;margin:36px 0 12px;scroll-margin-top:12px}
   p.sub{color:var(--mut);margin:0}
+  .nav{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0 0}
+  .nav a{font-size:.82rem;text-decoration:none;border:1px solid var(--line);background:var(--card);padding:5px 12px;border-radius:99px}
+  .nav a:hover{border-color:var(--ink)}
   .card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:18px}
   .grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
   @media(max-width:700px){.grid2{grid-template-columns:1fr}}
@@ -22,7 +26,6 @@
   .lula{--c:var(--lula)} .flavio{--c:var(--flavio)}
   .badge.lula{background:var(--lula)} .badge.flavio{background:var(--flavio)}
   .verdict .name{font-size:1.15rem;font-weight:700;color:var(--c)}
-  .big{font-size:2rem;font-weight:800;color:var(--c)}
   .bar{height:10px;background:var(--line);border-radius:99px;overflow:hidden;margin:6px 0}
   .bar>i{display:block;height:100%;background:var(--c);border-radius:99px}
   .scale{display:flex;justify-content:space-between;font-size:.72rem;color:var(--mut)}
@@ -30,9 +33,10 @@
   th,td{padding:10px 8px;border-bottom:1px solid var(--line);vertical-align:top;text-align:left}
   th{font-size:.78rem;text-transform:uppercase;letter-spacing:.04em;color:var(--mut)}
   .tablewrap{overflow-x:auto}
-  .pill{font-size:.72rem;padding:1px 8px;border-radius:99px;border:1px solid var(--line);color:var(--mut)}
+  .pill{display:inline-block;font-size:.72rem;padding:1px 8px;border-radius:99px;border:1px solid var(--line);color:var(--mut);margin:2px 4px 2px 0}
   .lead{font-weight:700;font-size:.8rem}
   .lead.lula{color:var(--lula)} .lead.flavio{color:var(--flavio)}
+  .note{font-size:.85rem;color:var(--mut)}
   .tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}
   .tabs button{border:1px solid var(--line);background:var(--card);color:var(--ink);padding:7px 14px;border-radius:99px;cursor:pointer;font:inherit;font-size:.88rem}
   .tabs button[aria-pressed=true]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
@@ -40,10 +44,48 @@
   .sector h3{margin:0 0 10px;font-size:1.05rem;display:flex;gap:10px;align-items:center;flex-wrap:wrap}
   .doc{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid var(--line)}
   .doc:last-child{border:0}
-  a{color:inherit} a.btn{background:var(--ink);color:var(--bg);padding:7px 14px;border-radius:8px;text-decoration:none;font-size:.85rem;white-space:nowrap}
-  .note{font-size:.85rem;color:var(--mut)}
-  footer{margin-top:40px;font-size:.82rem;color:var(--mut)}
+  a{color:inherit}
+  a.btn,button.btn{background:var(--ink);color:var(--bg);padding:8px 16px;border-radius:8px;text-decoration:none;font:inherit;font-size:.88rem;white-space:nowrap;border:0;cursor:pointer}
   [hidden]{display:none!important}
+
+  /* selo de detalhamento */
+  .selo{display:inline-block;font-size:.72rem;font-weight:600;padding:1px 9px;border-radius:99px;border:1px solid currentColor;margin:2px 4px 2px 0;letter-spacing:.02em}
+  .s-alta{color:#2f9e44} .s-media{color:#d9a400} .s-baixa{color:#e0701a}
+  details.falta{margin-top:6px;font-size:.85rem}
+  details.falta summary{cursor:pointer;color:var(--mut)}
+  details.falta ul{margin:6px 0 0;padding-left:18px}
+
+  /* formulário do simulador */
+  .form{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:14px 0}
+  @media(max-width:800px){.form{grid-template-columns:1fr 1fr}}
+  @media(max-width:480px){.form{grid-template-columns:1fr}}
+  label.f{display:flex;flex-direction:column;gap:4px;font-size:.82rem;color:var(--mut)}
+  select,input[type=search]{font:inherit;font-size:.95rem;padding:9px 10px;border-radius:8px;border:1px solid var(--line);background:var(--bg);color:var(--ink);width:100%}
+  .imp{border:1px solid var(--line);border-radius:10px;padding:12px;margin-top:10px;background:var(--bg)}
+  .imp b{display:block;margin-bottom:2px}
+  .imp p{margin:0 0 6px;font-size:.92rem}
+  .p-no_plano{color:#2f9e44;border-color:#2f9e44}
+  .p-congresso{color:#d9a400;border-color:#d9a400}
+  .p-sem_detalhe{color:#e0701a;border-color:#e0701a}
+  .p-campanha{color:#8a8a8a;border-color:#8a8a8a}
+
+  /* quiz */
+  .qp{font-size:1.15rem;margin:14px 0}
+  .opt{border:1px solid var(--line);border-radius:10px;padding:14px;margin-bottom:10px;background:var(--bg)}
+  .opt p{margin:0 0 10px}
+  button.skip{background:none;border:0;color:var(--mut);text-decoration:underline;cursor:pointer;font:inherit;font-size:.85rem;padding:6px 0}
+  .res-row{margin:14px 0}
+  .res-row .bar{height:14px}
+
+  /* glossário */
+  .termo{border-bottom:1px dotted currentColor;cursor:help}
+  #tip{position:fixed;z-index:50;max-width:290px;background:#111;color:#fff;padding:10px 12px;border-radius:8px;font-size:.82rem;line-height:1.4;box-shadow:0 4px 18px rgba(0,0,0,.4);pointer-events:none}
+  #tip b{color:#ffd66b}
+  dl.gl-lista{margin:12px 0 0}
+  .gl{padding:10px 0;border-bottom:1px solid var(--line)}
+  .gl:last-child{border:0}
+  .gl dt{font-weight:700}
+  .gl dd{margin:2px 0 0;color:var(--mut)}
 </style>
 </head>
 <body>
@@ -52,11 +94,34 @@
 <header>
   <h1>Lula x Flávio Bolsonaro: o que cada um propõe para a economia</h1>
   <p class="sub">Atualizado em {{ d.atualizado_em }} &middot; 2º turno em 25/10/2026 &middot; Site informativo, sem apoio a candidato.</p>
+  <nav class="nav" aria-label="Seções">
+    <a href="#veredito">Menos Estado</a>
+    <a href="#top5">Top 5</a>
+    <a href="#simulador">Meu bolso</a>
+    <a href="#quiz">Quiz</a>
+    <a href="#setores">Por setor</a>
+    <a href="#planos">Planos oficiais</a>
+    <a href="#glossario">Glossário</a>
+    <a href="#metodologia">Metodologia</a>
+  </nav>
 </header>
+
+{% macro selo(x) -%}
+<span class="selo s-{{ x.detalhamento }}" title="Quão concreta e verificável é a proposta no plano">{{ {'alta':'●●●','media':'●●○','baixa':'●○○'}[x.detalhamento] }} {{ x.selo }}</span>
+{%- endmacro %}
+{% macro faltam(x) -%}
+{% if x.faltam %}
+<details class="falta"><summary>O que falta saber ({{ x.faltam|length }})</summary>
+  <ul data-gloss>{% for f in x.faltam %}<li>{{ f }}</li>{% endfor %}</ul>
+</details>
+{% else %}
+<div class="note">Sem lacunas relevantes apontadas nas fontes consultadas.</div>
+{% endif %}
+{%- endmacro %}
 
 {# ---------- VEREDITO ---------- #}
 {% set v = d.veredito %}
-<h2>Quem propõe menos Estado?</h2>
+<h2 id="veredito">Quem propõe menos Estado?</h2>
 <div class="grid2 verdict">
   <div class="card {{ v.mais_liberal_intencao }}">
     <div class="note">Mais liberal no papel (intenção)</div>
@@ -98,7 +163,7 @@
 </div>
 
 {# ---------- TOP 5 ---------- #}
-<h2>Top 5 propostas econômicas</h2>
+<h2 id="top5">Top 5 propostas econômicas</h2>
 <div class="card tablewrap">
 <table>
   <thead><tr><th>Tema</th><th>Lula</th><th>Flávio Bolsonaro</th><th>Mais liberal</th></tr></thead>
@@ -107,9 +172,11 @@
   <tr>
     <td><b>{{ s.nome }}</b></td>
     {% for c in ['lula','flavio'] %}
-    <td>{{ s[c].resumo }}<br>
-      <span class="pill">liberal {{ s[c].nota }}/10</span>
-      <span class="pill">detalhe: {{ s[c].detalhamento|replace('media','médio') }}</span></td>
+    <td>
+      <div data-gloss>{{ s[c].resumo }}</div>
+      <span class="pill">liberal {{ s[c].nota }}/10</span>{{ selo(s[c]) }}
+      {{ faltam(s[c]) }}
+    </td>
     {% endfor %}
     <td>{% if s.mais_liberal %}<span class="lead {{ s.mais_liberal }}">{{ candidatos[s.mais_liberal].nome }}</span>{% else %}Empate{% endif %}</td>
   </tr>
@@ -122,10 +189,36 @@
   </tr>
   </tbody>
 </table>
+<p class="note" style="margin:10px 0 0">Selo de detalhamento: <span class="selo s-alta">●●● Detalhada</span> <span class="selo s-media">●●○ Parcial</span> <span class="selo s-baixa">●○○ Vaga</span></p>
+</div>
+
+{# ---------- SIMULADOR ---------- #}
+<h2 id="simulador">Quanto isso afeta o meu bolso?</h2>
+<div class="card">
+  <p class="note" style="margin-top:0">Responda 4 perguntas e veja quais propostas de cada candidato tocam o seu perfil. Não calculamos valores em reais: os planos quase não trazem números por pessoa.</p>
+  <div class="form">
+    {% for campo in sim.campos %}
+    <label class="f">{{ campo.rotulo }}
+      <select id="s-{{ campo.id }}">
+        {% if not campo.padrao %}<option value="">Selecione</option>{% endif %}
+        {% for o in campo.opcoes %}<option value="{{ o.v }}" {% if campo.padrao == o.v %}selected{% endif %}>{{ o.t }}</option>{% endfor %}
+      </select>
+    </label>
+    {% endfor %}
+  </div>
+  <div id="s-out" aria-live="polite"></div>
+  <p class="note" style="margin-bottom:0">Como ler: <span class="pill p-no_plano">Está no plano</span><span class="pill p-congresso">Depende do Congresso</span><span class="pill p-sem_detalhe">Sem detalhe ou fonte</span><span class="pill p-campanha">Declaração de campanha</span>
+  A quantidade de propostas não mostra qual é melhor para você: leia o conteúdo de cada uma. Seus dados não saem do seu navegador.</p>
+</div>
+
+{# ---------- QUIZ ---------- #}
+<h2 id="quiz">Quiz: com qual proposta você mais concorda?</h2>
+<div class="card">
+  <div id="quiz"><noscript>Ative o JavaScript para fazer o quiz.</noscript></div>
 </div>
 
 {# ---------- SETORES ---------- #}
-<h2>Por setor</h2>
+<h2 id="setores">Por setor</h2>
 <div class="tabs" id="tabs">
   <button aria-pressed="true" data-id="todos">Todos</button>
   {% for s in d.setores %}<button aria-pressed="false" data-id="{{ s.id }}">{{ s.nome }}</button>{% endfor %}
@@ -139,10 +232,11 @@
   <div class="grid2">
     {% for c in ['lula','flavio'] %}
     <div class="{{ c }}">
-      <span class="badge {{ c }}">{{ candidatos[c].nome }}</span>
-      <p style="margin:8px 0">{{ s[c].resumo }}</p>
+      <span class="badge {{ c }}">{{ candidatos[c].nome }}</span> {{ selo(s[c]) }}
+      <p style="margin:8px 0" data-gloss>{{ s[c].resumo }}</p>
       <div class="bar"><i style="width:{{ s[c].nota * 10 }}%"></i></div>
       <div class="scale"><span>Mais Estado</span><span>{{ s[c].nota }}/10 &middot; ajustada {{ s[c].ajustada }}</span><span>Menos Estado</span></div>
+      {{ faltam(s[c]) }}
     </div>
     {% endfor %}
   </div>
@@ -150,7 +244,7 @@
 {% endfor %}
 
 {# ---------- DOWNLOADS ---------- #}
-<h2>Baixe e leia os planos oficiais</h2>
+<h2 id="planos">Baixe e leia os planos oficiais</h2>
 <div class="card">
   {% for doc in documentos %}
   <div class="doc">
@@ -162,13 +256,28 @@
   <p class="note">Não hospedamos os documentos: os links levam ao site oficial do TSE, onde os planos estão registrados.</p>
 </div>
 
+{# ---------- GLOSSÁRIO ---------- #}
+<h2 id="glossario">Glossário em português claro</h2>
+<div class="card">
+  <p class="note" style="margin-top:0">Termos sublinhados com pontinhos nos textos mostram o significado ao passar o mouse ou tocar.</p>
+  <input type="search" id="gl-busca" placeholder="Buscar termo (ex.: IVA, PPP, arcabouço)" aria-label="Buscar no glossário">
+  <dl class="gl-lista" id="gl-lista">
+    {% for g in glossario|sort(attribute='termo') %}
+    <div class="gl" data-k="{{ (g.termo ~ ' ' ~ (g.alias|join(' ')) ~ ' ' ~ g.def)|lower }}"><dt>{{ g.termo }}</dt><dd>{{ g.def }}</dd></div>
+    {% endfor %}
+  </dl>
+  <p class="note" id="gl-vazio" hidden>Nenhum termo encontrado.</p>
+</div>
+
 {# ---------- METODOLOGIA ---------- #}
 <h2 id="metodologia">Como chegamos a essas notas</h2>
 <div class="card">
   <ul>
     <li><b>Escala "liberal" (0 a 10):</b> 0 = muito Estado (estatais, subsídio direto, mais controle); 10 = pouco Estado (corte de gasto, privatização, menos imposto, desregulação).</li>
-    <li><b>Detalhamento:</b> alta (fator {{ fatores.alta }}), média ({{ fatores.media }}) ou baixa ({{ fatores.baixa }}). A nota <b>ajustada</b> aproxima a nota do neutro (5) quando a proposta é vaga, para separar quem <i>promete</i> de quem <i>especifica</i>.</li>
-    <li><b>Julgamento editorial:</b> as notas são uma régua simples e aberta, não uma verdade científica. Pessoas diferentes podem pesar os temas de outra forma. Edite <code>data.py</code> e o site recalcula.</li>
+    <li><b>Detalhamento e selo:</b> <span class="selo s-alta">Detalhada</span> (fator {{ fatores.alta }}), <span class="selo s-media">Parcial</span> ({{ fatores.media }}) ou <span class="selo s-baixa">Vaga</span> ({{ fatores.baixa }}). A nota <b>ajustada</b> aproxima a nota do neutro (5) quando a proposta é vaga, para separar quem <i>promete</i> de quem <i>especifica</i>. O quadro "O que falta saber" lista as lacunas apontadas pelo plano e pela imprensa.</li>
+    <li><b>Simulador:</b> cruza o seu perfil com propostas que constam nos planos ou foram reportadas pela imprensa. Não estima valores em reais nem prevê resultados.</li>
+    <li><b>Quiz:</b> as opções aparecem embaralhadas e sem o nome do candidato até o resultado. Mede afinidade só com propostas econômicas, sem incluir segurança, saúde, educação ou costumes, e não é recomendação de voto.</li>
+    <li><b>Julgamento editorial:</b> as notas são uma régua simples e aberta, não uma verdade científica. Pessoas diferentes podem pesar os temas de outra forma.</li>
     <li><b>Limites:</b> usamos os planos registrados no TSE e a imprensa. Declarações de campanha podem mudar posições (ex.: Flávio passou a apoiar o fim da 6x1). Ambos dependem do Congresso.</li>
   </ul>
   <p class="note">Fontes:
@@ -178,15 +287,163 @@
 
 </div>
 
+<div id="tip" role="tooltip" hidden></div>
+
 <script>
-  const tabs = document.getElementById('tabs');
-  tabs.addEventListener('click', e => {
-    const b = e.target.closest('button'); if (!b) return;
-    tabs.querySelectorAll('button').forEach(x => x.setAttribute('aria-pressed', x === b));
-    document.querySelectorAll('.sector').forEach(el => {
-      el.hidden = b.dataset.id !== 'todos' && el.dataset.setor !== b.dataset.id;
+const DATA = {{ dados|tojson }};
+const NOMES = DATA.nomes;
+const $ = id => document.getElementById(id);
+const norm = s => s.toLowerCase();
+
+/* ---------- Abas por setor ---------- */
+const tabs = $('tabs');
+tabs.addEventListener('click', e => {
+  const b = e.target.closest('button'); if (!b) return;
+  tabs.querySelectorAll('button').forEach(x => x.setAttribute('aria-pressed', x === b));
+  document.querySelectorAll('.sector').forEach(el => {
+    el.hidden = b.dataset.id !== 'todos' && el.dataset.setor !== b.dataset.id;
+  });
+});
+
+/* ---------- Glossário: dicas nos textos ---------- */
+const MAPA = {};
+DATA.glossario.forEach(g => [g.termo, ...(g.alias || [])].forEach(a => { MAPA[norm(a)] = g; }));
+const ALT = Object.keys(MAPA).sort((a, b) => b.length - a.length)
+  .map(a => a.replace(/[.*+?^$()|[\]\\]/g, '\\$&')).join('|');
+const RE_G = new RegExp('(^|[^\\p{L}\\d])(' + ALT + ')(?![\\p{L}\\d])', 'giu');
+
+function glossar(root) {
+  root.querySelectorAll('[data-gloss]').forEach(el => {
+    if (el.dataset.g) return;
+    el.dataset.g = '1';
+    const usados = new Set();
+    const w = document.createTreeWalker(el, NodeFilter.SHOW_TEXT);
+    const nos = []; while (w.nextNode()) nos.push(w.currentNode);
+    nos.forEach(n => {
+      if (n.parentElement.closest('.termo,summary,button,a,select,label')) return;
+      const t = n.nodeValue; RE_G.lastIndex = 0;
+      let m, ult = 0, achou = false; const f = document.createDocumentFragment();
+      while ((m = RE_G.exec(t))) {
+        const g = MAPA[norm(m[2])];
+        if (!g || usados.has(g.termo)) continue;
+        usados.add(g.termo); achou = true;
+        const ini = m.index + m[1].length;
+        f.append(t.slice(ult, ini));
+        const s = document.createElement('span');
+        s.className = 'termo'; s.tabIndex = 0; s.dataset.t = g.termo; s.textContent = m[2];
+        f.append(s); ult = ini + m[2].length;
+      }
+      if (achou) { f.append(t.slice(ult)); n.replaceWith(f); }
     });
   });
+}
+
+const tip = $('tip');
+function mostrar(el) {
+  const g = MAPA[norm(el.dataset.t)]; if (!g) return;
+  tip.textContent = '';
+  const b = document.createElement('b'); b.textContent = g.termo;
+  tip.append(b, ' — ' + g.def);
+  tip.hidden = false;
+  const r = el.getBoundingClientRect();
+  const x = Math.min(Math.max(8, r.left), innerWidth - tip.offsetWidth - 8);
+  let y = r.top - tip.offsetHeight - 8; if (y < 8) y = r.bottom + 8;
+  tip.style.left = x + 'px'; tip.style.top = y + 'px';
+}
+document.addEventListener('mouseover', e => { const t = e.target.closest('.termo'); if (t) mostrar(t); });
+document.addEventListener('mouseout', e => { if (e.target.closest('.termo')) tip.hidden = true; });
+document.addEventListener('focusin', e => { const t = e.target.closest('.termo'); if (t) mostrar(t); });
+document.addEventListener('focusout', e => { if (e.target.closest('.termo')) tip.hidden = true; });
+document.addEventListener('click', e => { const t = e.target.closest('.termo'); if (t) mostrar(t); else tip.hidden = true; });
+addEventListener('scroll', () => { tip.hidden = true; }, { passive: true });
+
+/* busca no glossário */
+$('gl-busca').addEventListener('input', e => {
+  const q = norm(e.target.value.trim()); let n = 0;
+  document.querySelectorAll('#gl-lista .gl').forEach(el => {
+    const ok = !q || el.dataset.k.includes(q); el.hidden = !ok; if (ok) n++;
+  });
+  $('gl-vazio').hidden = n > 0;
+});
+
+/* ---------- Simulador ---------- */
+const SIM = DATA.simulador;
+function bate(i, p) {
+  if (!i.quando) return true;
+  return i.quando.some(c => Object.entries(c).every(([k, v]) => v.includes(p[k])));
+}
+function simular() {
+  const p = { renda: $('s-renda').value, vinculo: $('s-vinculo').value, bolsa: $('s-bolsa').value, divida: $('s-divida').value };
+  const out = $('s-out');
+  if (!p.renda || !p.vinculo) {
+    out.innerHTML = '<p class="note">Escolha sua renda e sua situação para ver as propostas que tocam o seu perfil.</p>';
+    return;
+  }
+  let html = '<div class="grid2">';
+  ['lula', 'flavio'].forEach(c => {
+    const lista = SIM.impactos.filter(i => i.cand === c && bate(i, p));
+    html += '<div class="' + c + '"><span class="badge ' + c + '">' + NOMES[c] + '</span>' +
+      (lista.length ? lista.map(i =>
+        '<div class="imp" data-gloss><b>' + i.titulo + '</b><p>' + i.texto + '</p>' +
+        '<span class="pill p-' + i.certeza + '">' + SIM.certeza[i.certeza] + '</span></div>').join('')
+       : '<p class="note">Nenhuma proposta específica para este perfil nas fontes consultadas.</p>') +
+      '</div>';
+  });
+  out.innerHTML = html + '</div>';
+  glossar(out);
+}
+['s-renda', 's-vinculo', 's-bolsa', 's-divida'].forEach(id => $(id).addEventListener('change', simular));
+simular();
+
+/* ---------- Quiz ---------- */
+const QZ = DATA.quiz;
+let qi = 0, resp = [], ordem = [];
+function embaralhar() { ordem = QZ.map(() => Math.random() < 0.5 ? [0, 1] : [1, 0]); }
+function quiz() {
+  const el = $('quiz');
+  if (qi >= QZ.length) return resultado(el);
+  const q = QZ[qi], [a, b] = ordem[qi];
+  el.innerHTML =
+    '<div class="note">Pergunta ' + (qi + 1) + ' de ' + QZ.length + ' &middot; ' + q.tema + '</div>' +
+    '<div class="bar"><i style="width:' + (qi / QZ.length * 100) + '%;background:var(--ink)"></i></div>' +
+    '<h3 class="qp">' + q.pergunta + '</h3>' +
+    [a, b].map(k => '<div class="opt"><p data-gloss>' + q.opcoes[k].texto + '</p>' +
+      '<button class="btn" data-k="' + k + '">Escolho esta</button></div>').join('') +
+    '<button class="skip" data-k="-1">Pular esta pergunta</button>';
+  glossar(el);
+}
+function resultado(el) {
+  const ok = resp.filter(Boolean), n = ok.length, c = { lula: 0, flavio: 0 };
+  ok.forEach(x => c[x]++);
+  if (!n) {
+    el.innerHTML = '<p>Você pulou todas as perguntas.</p><button class="btn" data-reiniciar>Refazer o quiz</button>';
+    return;
+  }
+  const linhas = QZ.map((q, i) => {
+    const x = resp[i];
+    if (!x) return '<tr><td>' + q.tema + '</td><td class="note">Pulou</td><td></td></tr>';
+    const o = q.opcoes.find(o => o.cand === x);
+    return '<tr><td><b>' + q.tema + '</b></td><td>' + o.texto + '</td><td><span class="badge ' + x + '">' + NOMES[x] + '</span></td></tr>';
+  }).join('');
+  el.innerHTML =
+    '<h3 style="margin-top:0">Seu resultado</h3>' +
+    ['lula', 'flavio'].map(k =>
+      '<div class="res-row ' + k + '"><span class="badge ' + k + '">' + NOMES[k] + '</span> ' +
+      '<b>' + Math.round(c[k] / n * 100) + '%</b> <span class="note">(' + c[k] + ' de ' + n + ' respostas)</span>' +
+      '<div class="bar"><i style="width:' + (c[k] / n * 100) + '%"></i></div></div>').join('') +
+    '<p class="note">Afinidade apenas com propostas econômicas. Não é recomendação de voto e não considera segurança, saúde, educação nem costumes.</p>' +
+    '<div class="tablewrap"><table><thead><tr><th>Tema</th><th>Sua escolha</th><th>Posição de</th></tr></thead><tbody>' + linhas + '</tbody></table></div>' +
+    '<p><button class="btn" data-reiniciar>Refazer o quiz</button></p>';
+}
+$('quiz').addEventListener('click', e => {
+  const b = e.target.closest('button[data-k]');
+  if (b) { const k = +b.dataset.k; resp[qi] = k < 0 ? null : QZ[qi].opcoes[k].cand; qi++; quiz(); return; }
+  if (e.target.closest('[data-reiniciar]')) { qi = 0; resp = []; embaralhar(); quiz(); }
+});
+embaralhar(); quiz();
+
+/* ---------- Dicas do glossário nos textos fixos ---------- */
+glossar(document);
 </script>
 </body>
 </html>
